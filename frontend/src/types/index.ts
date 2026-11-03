@@ -86,3 +86,19 @@ export interface UnansweredQuestion {
   created_at: string;
 }
 
+export interface TimelineDataPoint {
+  date: string;
+  label: string;
+  conversations: number;
+  messages: number;
+  satisfaction: number;
+}
+
+export interface AnalyticsTimelineResponse {
+  period: '7d' | '30d' | '90d' | '180d' | '365d';
+  total_in_period: number;
+  growth_rate: number;
+  data: TimelineDataPoint[];
+}
+
+

@@ -5,7 +5,8 @@ import {
   KnowledgeSheet,
   DashboardStats,
   UnansweredQuestion,
-  OrientationResult
+  OrientationResult,
+  AnalyticsTimelineResponse
 } from '../types';
 
 const API_BASE = '/api/v1';
@@ -193,6 +194,14 @@ export const api = {
     const res = await fetch(`${API_BASE}/analytics/dashboard`, {
       headers: { Authorization: `Bearer ${token}` }
     });
+    return res.json();
+  },
+
+  async getTimeline(token: string, period: string = '7d'): Promise<AnalyticsTimelineResponse> {
+    const res = await fetch(`${API_BASE}/analytics/timeline?period=${period}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Erreur lors de la récupération des métriques');
     return res.json();
   },
 

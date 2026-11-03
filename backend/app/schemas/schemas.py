@@ -135,6 +135,19 @@ class EmergencyStatus(BaseModel):
     maintenance_message_en: str
 
 # Stats / Dashboard
+class TimelineDataPoint(BaseModel):
+    date: str
+    label: str
+    conversations: int
+    messages: int
+    satisfaction: float
+
+class AnalyticsTimelineResponse(BaseModel):
+    period: str
+    total_in_period: int
+    growth_rate: float
+    data: List[TimelineDataPoint]
+
 class DashboardStats(BaseModel):
     total_conversations: int
     total_messages: int

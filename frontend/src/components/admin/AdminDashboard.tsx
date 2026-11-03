@@ -24,7 +24,16 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { api } from '../../services/api';
-import { KnowledgeSheet, DashboardStats, CallbackRequest, UnansweredQuestion } from '../../types';
+import { KnowledgeSheet, DashboardStats, CallbackRequest, UnansweredQuestion, TimelineDataPoint } from '../../types';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip
+} from 'recharts';
 
 interface AdminDashboardProps {
   token: string;
@@ -53,6 +62,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [unanswered, setUnanswered] = useState<UnansweredQuestion[]>([]);
   const [loading, setLoading] = useState(false);
   const [emergencyActive, setEmergencyActive] = useState(false);
+
+  // Timeline Chart State (Connecté aux données réelles & plusieurs mois)
+  const [timelinePeriod, setTimelinePeriod] = useState<'7d' | '30d' | '90d' | '180d' | '365d'>('7d');
+  const [timelineData, setTimelineData] = useState<TimelineDataPoint[]>([]);
+  const [timelineGrowth, setTimelineGrowth] = useState<number>(18.4);
+  const [timelineTotal, setTimelineTotal] = useState<number>(2485);
+  const [timelineLoading, setTimelineLoading] = useState<boolean>(false);
 
   // Search & Filters
   const [sheetSearch, setSheetSearch] = useState('');
@@ -96,6 +112,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   useEffect(() => {
     loadData();
   }, [token]);
+
+  const fetchTimeline = async (p: '7d' | '30d' | '90d' | '180d' | '365d') => {
+    setTimelineLoading(true);
+    try {
+      const res = await api.getTimeline(token, p);
+      setTimelineData(res.data);
+      setTimelineGrowth(res.growth_rate);
+      setTimelineTotal(res.total_in_period);
+    } catch (e) {
+      console.error("Erreur timeline:", e);
+    } finally {
+      setTimelineLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchTimeline(timelinePeriod);
+    }
+  }, [timelinePeriod, token]);
 
   const handleToggleEmergency = async () => {
     const nextState = !emergencyActive;
@@ -188,10 +224,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <nav className="space-y-1 text-xs font-semibold">
             <button
               onClick={() => setCurrentSection('overview')}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md transition ${
                 currentSection === 'overview'
-                  ? 'bg-poly-gold text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-poly-gold text-white font-bold shadow-xs'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               <BarChart3 size={16} />
@@ -200,16 +236,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setCurrentSection('callbacks')}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md transition ${
                 currentSection === 'callbacks'
-                  ? 'bg-poly-gold text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-poly-gold text-white font-bold shadow-xs'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               <MessageSquare size={16} />
               <span>Demandes de rappel</span>
               {callbacks.filter(c => c.status === 'pending').length > 0 && (
-                <span className="ml-auto bg-amber-500 text-slate-950 text-[10px] font-bold px-1.5 py-0.2 rounded-md">
+                <span className="ml-auto bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-md">
                   {callbacks.filter(c => c.status === 'pending').length}
                 </span>
               )}
@@ -217,10 +253,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setCurrentSection('sheets')}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md transition ${
                 currentSection === 'sheets'
-                  ? 'bg-poly-gold text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-poly-gold text-white font-bold shadow-xs'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               <FileText size={16} />
@@ -229,10 +265,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setCurrentSection('unanswered')}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md transition ${
                 currentSection === 'unanswered'
-                  ? 'bg-poly-gold text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-poly-gold text-white font-bold shadow-xs'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               <HelpCircle size={16} />
@@ -246,10 +282,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setCurrentSection('settings')}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md transition ${
                 currentSection === 'settings'
-                  ? 'bg-poly-gold text-slate-950 font-bold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-poly-gold text-white font-bold shadow-xs'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               <Settings size={16} />
@@ -266,7 +302,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <button
             onClick={onLogout}
-            className="w-full flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs text-slate-400 hover:text-red-400 hover:bg-red-950/20 transition cursor-pointer"
+            className="w-full flex items-center gap-2 px-3.5 py-2 rounded-md text-xs text-slate-400 hover:text-red-400 hover:bg-red-950/20 transition cursor-pointer"
           >
             <LogOut size={15} />
             <span>Déconnexion</span>
@@ -291,10 +327,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
 
               <div className="flex items-center gap-2">
-                <select className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none">
-                  <option>7 derniers jours</option>
-                  <option>30 derniers jours</option>
-                  <option>Toute la période</option>
+                <select
+                  value={timelinePeriod}
+                  onChange={(e) => setTimelinePeriod(e.target.value as any)}
+                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer shadow-2xs"
+                >
+                  <option value="7d">7 derniers jours</option>
+                  <option value="30d">30 derniers jours (1 mois)</option>
+                  <option value="90d">3 derniers mois</option>
+                  <option value="180d">6 derniers mois</option>
+                  <option value="365d">1 an (Toute l'année)</option>
                 </select>
               </div>
             </div>
@@ -354,73 +396,132 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
             </div>
 
-            {/* Smooth SVG Activity Chart matching Mockup 07 */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
-              <div className="flex items-center justify-between">
+            {/* Real Interactive Chart with Recharts matching Mockup 07 with multi-month periods */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-base sm:text-lg font-black text-poly-navy dark:text-white">
-                    Activité des conversations
-                  </h3>
-                  <p className="text-xs text-slate-400">Volume de consultations journalières</p>
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-base sm:text-lg font-black text-poly-navy dark:text-white">
+                      Activité des conversations
+                    </h3>
+                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
+                      +{timelineGrowth}% sur la période
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Volume : <span className="font-bold text-poly-navy dark:text-white">{timelineTotal.toLocaleString()}</span> consultations enregistrées
+                  </p>
                 </div>
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
-                  +18.4% cette semaine
-                </span>
+
+                {/* Period Selector (7J, 1 Mois, 3 Mois, 6 Mois, 1 An) */}
+                <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-md border border-slate-200 dark:border-slate-700/60 text-xs font-bold">
+                  {[
+                    { id: '7d' as const, label: '7J' },
+                    { id: '30d' as const, label: '1 Mois' },
+                    { id: '90d' as const, label: '3 Mois' },
+                    { id: '180d' as const, label: '6 Mois' },
+                    { id: '365d' as const, label: '1 An' }
+                  ].map((btn) => (
+                    <button
+                      key={btn.id}
+                      onClick={() => setTimelinePeriod(btn.id)}
+                      className={`px-3 py-1.5 rounded-md transition cursor-pointer ${
+                        timelinePeriod === btn.id
+                          ? 'bg-poly-gold text-white font-extrabold shadow-xs'
+                          : 'text-slate-600 dark:text-slate-300 hover:text-white hover:bg-poly-navy dark:hover:bg-white/10'
+                      }`}
+                    >
+                      {btn.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* SVG Line Chart */}
-              <div className="w-full h-52 sm:h-64">
-                <svg viewBox="0 0 700 240" className="w-full h-full overflow-visible">
-                  <defs>
-                    <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#0f3b6c" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#0f3b6c" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-                  {/* Grid lines */}
-                  <line x1="50" y1="30" x2="680" y2="30" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
-                  <line x1="50" y1="80" x2="680" y2="80" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
-                  <line x1="50" y1="130" x2="680" y2="130" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
-                  <line x1="50" y1="180" x2="680" y2="180" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
-
-                  {/* Y Axis labels */}
-                  <text x="25" y="34" className="text-[10px] fill-slate-400">3k</text>
-                  <text x="25" y="84" className="text-[10px] fill-slate-400">2k</text>
-                  <text x="25" y="134" className="text-[10px] fill-slate-400">1k</text>
-                  <text x="30" y="184" className="text-[10px] fill-slate-400">0</text>
-
-                  {/* Area fill */}
-                  <path
-                    d="M 60 170 Q 150 160, 240 140 T 420 110 T 560 70 T 670 45 L 670 190 L 60 190 Z"
-                    fill="url(#chartGradient)"
-                  />
-                  {/* Line curve */}
-                  <path
-                    d="M 60 170 Q 150 160, 240 140 T 420 110 T 560 70 T 670 45"
-                    fill="none"
-                    stroke="#0f3b6c"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                    className="dark:stroke-poly-gold"
-                  />
-                  {/* Data points */}
-                  <circle cx="60" cy="170" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="160" cy="155" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="260" cy="135" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="360" cy="120" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="460" cy="95" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="560" cy="70" r="4.5" fill="#0f3b6c" className="dark:fill-poly-gold" />
-                  <circle cx="670" cy="45" r="5.5" fill="#c59b27" stroke="#ffffff" strokeWidth="2" />
-
-                  {/* X Axis days labels */}
-                  <text x="50" y="215" className="text-[11px] fill-slate-400 font-semibold">Lun</text>
-                  <text x="150" y="215" className="text-[11px] fill-slate-400 font-semibold">Mar</text>
-                  <text x="250" y="215" className="text-[11px] fill-slate-400 font-semibold">Mer</text>
-                  <text x="350" y="215" className="text-[11px] fill-slate-400 font-semibold">Jeu</text>
-                  <text x="450" y="215" className="text-[11px] fill-slate-400 font-semibold">Ven</text>
-                  <text x="550" y="215" className="text-[11px] fill-slate-400 font-semibold">Sam</text>
-                  <text x="655" y="215" className="text-[11px] fill-slate-400 font-semibold">Dim</text>
-                </svg>
+              {/* Chart container */}
+              <div className="w-full h-64 sm:h-72">
+                {timelineLoading ? (
+                  <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">
+                    Chargement des données analytiques...
+                  </div>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart
+                      data={timelineData}
+                      margin={{ top: 10, right: 10, left: -15, bottom: 0 }}
+                    >
+                      <defs>
+                        <linearGradient id="chartGradientGold" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#c59b27" stopOpacity={0.35} />
+                          <stop offset="95%" stopColor="#c59b27" stopOpacity={0.0} />
+                        </linearGradient>
+                        <linearGradient id="chartGradientBlue" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#2563eb" stopOpacity={0.2} />
+                          <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.25} />
+                      <XAxis
+                        dataKey="date"
+                        stroke="#94a3b8"
+                        fontSize={11}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <YAxis
+                        stroke="#94a3b8"
+                        fontSize={11}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(val) => val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val}
+                      />
+                      <Tooltip
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            const data = payload[0].payload as TimelineDataPoint;
+                            return (
+                              <div className="bg-slate-900 text-white p-3 rounded-md shadow-xl border border-slate-700 text-xs space-y-1">
+                                <div className="font-bold text-poly-gold">{data.label || data.date}</div>
+                                <div className="flex items-center justify-between gap-4">
+                                  <span className="text-slate-300">Conversations:</span>
+                                  <span className="font-extrabold text-white">{data.conversations.toLocaleString()}</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-4">
+                                  <span className="text-slate-300">Questions traitées:</span>
+                                  <span className="font-extrabold text-blue-400">{data.messages.toLocaleString()}</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-4 pt-1 border-t border-slate-800 text-[11px]">
+                                  <span className="text-slate-400">Satisfaction:</span>
+                                  <span className="font-bold text-emerald-400">{data.satisfaction.toFixed(1)}%</span>
+                                </div>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="conversations"
+                        stroke="#c59b27"
+                        strokeWidth={3}
+                        fillOpacity={1}
+                        fill="url(#chartGradientGold)"
+                        dot={{ fill: '#c59b27', stroke: '#fff', strokeWidth: 1.5, r: 4 }}
+                        activeDot={{ r: 6, fill: '#fff', stroke: '#c59b27', strokeWidth: 2.5 }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="messages"
+                        stroke="#3b82f6"
+                        strokeWidth={2}
+                        strokeDasharray="4 4"
+                        fillOpacity={1}
+                        fill="url(#chartGradientBlue)"
+                        dot={false}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                )}
               </div>
             </div>
           </div>

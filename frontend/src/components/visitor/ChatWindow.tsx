@@ -149,14 +149,14 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           <nav className="space-y-1 text-xs font-semibold">
             <button
               onClick={() => onNavigateTab('home')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition"
             >
               <Home size={15} />
               <span>{isEn ? "Home" : "Accueil"}</span>
             </button>
 
             <button
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl bg-poly-gold text-slate-950 font-bold shadow-xs transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md bg-poly-gold text-white font-bold shadow-xs transition"
             >
               <MessageSquare size={15} />
               <span>{isEn ? "Chat" : "Chat"}</span>
@@ -164,7 +164,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
             <button
               onClick={() => onNavigateTab('orientation')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition"
             >
               <Compass size={15} />
               <span>{isEn ? "Orientation" : "Orientation"}</span>
@@ -172,7 +172,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
             <button
               onClick={() => onNavigateTab('jour_j')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition"
             >
               <Calendar size={15} />
               <span>{isEn ? "Events" : "Événements"}</span>
@@ -180,7 +180,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
             <button
               onClick={() => onSendMessage(isEn ? "Give me a summary of ENSPD academic resources and departments" : "Donne-moi les ressources et départements de l'ENSPD")}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition"
             >
               <BookOpen size={15} />
               <span>{isEn ? "Resources" : "Ressources"}</span>
@@ -188,7 +188,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
             <button
               onClick={() => onNavigateTab('admin')}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition"
             >
               <Settings size={15} />
               <span>{isEn ? "Settings" : "Paramètres"}</span>
@@ -200,7 +200,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         <div className="pt-4 border-t border-slate-800/80">
           <button
             onClick={() => onNavigateTab('home')}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-slate-400 hover:text-red-400 hover:bg-red-950/20 transition"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs text-slate-400 hover:text-red-400 hover:bg-red-950/20 transition"
           >
             <LogOut size={14} />
             <span>{isEn ? "Quit Chat" : "Déconnexion"}</span>

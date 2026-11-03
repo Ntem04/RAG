@@ -236,7 +236,7 @@ export const App: React.FC = () => {
               <h1 className="text-3xl font-black text-poly-navy dark:text-white">
                 À propos de l'ENSPD
               </h1>
-              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
+              <p className="text-sm text-slate-600 dark:text-slate-200 font-medium max-w-2xl">
                 L'École Nationale Supérieure Polytechnique de Douala est la grande école d'ingénieurs de référence de l'Université de Douala.
               </p>
             </div>

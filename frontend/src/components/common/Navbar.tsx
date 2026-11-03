@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Center Navigation Links - Clean, Professional (NO weird AI yellow pills) */}
+        {/* Center Navigation Links - Clean, Professional Rectangular */}
         <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm">
           {navItems.map((item) => {
             const isActive = currentTab === item.id;
@@ -80,14 +80,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setCurrentTab(item.id)}
                 className={`relative px-3.5 py-2 rounded-md font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
                   isActive
-                    ? "text-poly-navy dark:text-white font-bold bg-slate-100 dark:bg-white/10"
-                    : "text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5"
+                    ? "text-white font-bold bg-poly-navy dark:bg-white/15 shadow-xs"
+                    : "text-slate-600 dark:text-slate-300 hover:text-white hover:bg-poly-navy/90 dark:hover:bg-white/10"
                 }`}
               >
                 {item.icon}
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-poly-gold rounded-full" />
+                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-poly-gold" />
                 )}
               </button>
             );
@@ -99,20 +99,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg border border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-2 rounded-md border border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-poly-navy dark:hover:bg-white/10 transition-colors cursor-pointer"
             title={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
           >
             {isDark ? (
               <Sun size={16} className="text-poly-gold" />
             ) : (
-              <Moon size={16} className="text-slate-600" />
+              <Moon size={16} className="text-slate-600 dark:text-slate-300" />
             )}
           </button>
 
           {/* Language Switch Button */}
           <button
             onClick={() => setLanguage(language === "fr" ? "en" : "fr")}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-bold border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:text-white hover:bg-poly-navy dark:hover:bg-white/10 transition-colors cursor-pointer"
           >
             <Globe size={13} className="text-poly-gold" />
             <span>{language.toUpperCase()}</span>
@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Espace admin button (matching mockup design) */}
           <button
             onClick={() => setCurrentTab("admin")}
-            className="bg-poly-navy hover:bg-[#0a233b] dark:bg-[#122e4d] dark:hover:bg-[#183c63] text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-lg transition shadow-xs flex items-center gap-2 border border-slate-700/40 cursor-pointer"
+            className="bg-poly-navy hover:bg-[#0a233b] dark:bg-[#122e4d] dark:hover:bg-[#183c63] text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-md transition shadow-xs flex items-center gap-2 border border-slate-700/40 cursor-pointer"
           >
             <Lock size={13} className="text-poly-gold" />
             <span>{isEn ? "Admin Portal" : "Espace admin"}</span>
