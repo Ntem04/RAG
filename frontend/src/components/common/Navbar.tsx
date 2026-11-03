@@ -54,11 +54,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="w-11 h-11 object-contain shrink-0 group-hover:scale-105 transition-transform"
           />
           <div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
                 ENSPD
               </span>
-              <span className="text-[10px] uppercase font-bold bg-poly-gold text-slate-950 px-1.5 py-0.5 rounded-sm">
+              <span className="font-display font-bold text-base tracking-wider text-poly-goldDark dark:text-poly-gold uppercase">
                 POLY
               </span>
             </div>
