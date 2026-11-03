@@ -20,6 +20,12 @@ export default {
           dark: "#0a2544",
           sidebar: "#0d2238"
         }
+      },
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        redaction: ['"Redaction 35"', 'Georgia', 'serif'],
+        display: ['"Redaction 35"', 'Georgia', 'serif'],
+        serif: ['"Redaction 35"', 'Georgia', 'serif'],
       }
     },
   },
