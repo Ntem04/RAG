@@ -10,7 +10,8 @@ export default {
       colors: {
         poly: {
           navy: "#0e2a47",
-          deepNavy: "#081b2e",
+          deepNavy: "#091a2c",
+          "deep-navy": "#091a2c",
           blue: "#0f3b6c",
           gold: "#c59b27",
           goldDark: "#b8860b",
