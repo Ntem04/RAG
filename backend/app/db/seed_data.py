@@ -242,6 +242,62 @@ OFFICIAL_ENSPD_SHEETS = [
         )
     },
     {
+        "code": "FIL-GME-013",
+        "title": "Département Génie Mécanique (GME)",
+        "category": "filiere",
+        "language": "fr",
+        "official_source": "Département Génie Mécanique ENSPD - https://enspd-udo.cm/departements",
+        "sensitivity": "normal",
+        "status": "validated",
+        "content": (
+            "Le département Génie Mécanique (GME) forme des ingénieurs concepteurs de systèmes mécaniques, d'équipements industriels et de machines complexes. "
+            "Spécialités : Construction Mécanique et Productique (CMP), Construction Métallique et Tuyauterie Industrielle (CMT). "
+            "Compétences clés : modélisation CAO/DAO 3D (SolidWorks, CATIA), usinage à commande numérique (CNC), métallurgie, chaudronnerie et tuyauterie industrielle."
+        )
+    },
+    {
+        "code": "FIL-GPR-014",
+        "title": "Département Génie des Procédés (GPR)",
+        "category": "filiere",
+        "language": "fr",
+        "official_source": "Département Génie des Procédés ENSPD - https://enspd-udo.cm/departements",
+        "sensitivity": "normal",
+        "status": "validated",
+        "content": (
+            "Le département Génie des Procédés (GPR) est dédié à la transformation industrielle de la matière et de l'énergie. "
+            "Spécialités : Chimie Industrielle (CI), Bioprocédés Industriels (BI), et Génie Pharmaceutique (GP). "
+            "Débouchés majeurs : raffineries pétrolières et pétrochimie, industries cosmétiques et pharmaceutiques, cimenteries et transformation agroalimentaire."
+        )
+    },
+    {
+        "code": "FIL-GEN-015",
+        "title": "Département Génie Énergétique (GEN)",
+        "category": "filiere",
+        "language": "fr",
+        "official_source": "Département Génie Énergétique ENSPD - https://enspd-udo.cm/departements",
+        "sensitivity": "normal",
+        "status": "validated",
+        "content": (
+            "Le département Génie Énergétique (GEN) forme des spécialistes de la production, de la distribution et de la gestion sobre et rationnelle de l'énergie. "
+            "Spécialités : Ingénierie de la Production et de la Maîtrise de l'Énergie (IPME), Génie Frigorifique et Climatique (GFC). "
+            "Expertises : parcs solaires photovoltaïques et thermiques, biomasse, climatisation industrielle et froid commercial, audit énergétique et décarbonation."
+        )
+    },
+    {
+        "code": "FIL-GPH-016",
+        "title": "Département Génie Physique (GPH)",
+        "category": "filiere",
+        "language": "fr",
+        "official_source": "Département Génie Physique ENSPD - https://enspd-udo.cm/departements",
+        "sensitivity": "normal",
+        "status": "validated",
+        "content": (
+            "Le département Génie Physique (GPH) adapte les découvertes de la physique moderne aux applications industrielles et médicales de pointe. "
+            "Spécialités : Capteurs, Instrumentations et Mesures (CIM), Technologies Biomédicales et Physique Médicale (radiothérapie et imagerie oncologique). "
+            "Domaines : optique et photonique, fibres optiques, lasers industriels, microélectronique et métrologie de précision."
+        )
+    },
+    {
         "code": "ADM-DIR-012",
         "title": "Direction, Gouvernance et Création de l'ENSPD",
         "category": "institutionnel",

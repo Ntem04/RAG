@@ -6,7 +6,7 @@ import { ChatWindow } from './components/visitor/ChatWindow';
 import { OrientationWizard } from './components/visitor/OrientationWizard';
 import { DayJProgram } from './components/visitor/DayJProgram';
 import { CallbackModal } from './components/visitor/CallbackModal';
-import { LoginModal } from './components/admin/LoginModal';
+import { LoginPage } from './components/admin/LoginPage';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { ChatMessage } from './types';
 import { api } from './services/api';
@@ -153,11 +153,7 @@ export const App: React.FC = () => {
   };
 
   const handleTabChange = (tab: 'home' | 'chat' | 'orientation' | 'jour_j' | 'apropos' | 'admin') => {
-    if (tab === 'admin' && !authToken) {
-      setIsLoginOpen(true);
-    } else {
-      setCurrentTab(tab);
-    }
+    setCurrentTab(tab);
   };
 
   return (
@@ -281,17 +277,29 @@ export const App: React.FC = () => {
         )}
 
         {/* 07 - 10. Espace Administration */}
-        {currentTab === 'admin' && authToken && (
-          <AdminDashboard
-            token={authToken}
-            role={authRole}
-            username={authUsername}
-            onLogout={() => {
-              setAuthToken(null);
-              setCurrentTab('home');
-            }}
-            language={language}
-          />
+        {currentTab === 'admin' && (
+          authToken ? (
+            <AdminDashboard
+              token={authToken}
+              role={authRole}
+              username={authUsername}
+              onLogout={() => {
+                setAuthToken(null);
+                setCurrentTab('home');
+              }}
+              language={language}
+            />
+          ) : (
+            <LoginPage
+              onLoginSuccess={(token, role, user) => {
+                setAuthToken(token);
+                setAuthRole(role);
+                setAuthUsername(user);
+              }}
+              onCancel={() => setCurrentTab('home')}
+              language={language}
+            />
+          )
         )}
       </main>
 
@@ -301,18 +309,6 @@ export const App: React.FC = () => {
         onClose={() => setIsCallbackOpen(false)}
         language={language}
         profile={profile}
-      />
-
-      <LoginModal
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        onLoginSuccess={(token, role, user) => {
-          setAuthToken(token);
-          setAuthRole(role);
-          setAuthUsername(user);
-          setCurrentTab('admin');
-        }}
-        language={language}
       />
     </div>
   );
