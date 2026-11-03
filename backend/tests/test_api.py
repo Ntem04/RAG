@@ -1,0 +1,58 @@
+import pytest
+from unittest.mock import MagicMock
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from app.db.database import Base
+from app.db.seed_data import seed_database
+from app.api.v1 import auth, chat, orientation, emergency
+from app.schemas.schemas import UserLogin, ChatRequest, OrientationRequest, OrientationStepAnswer
+
+@pytest.fixture
+def api_db():
+    engine = create_engine("sqlite:///:memory:")
+    Base.metadata.create_all(bind=engine)
+    Session = sessionmaker(bind=engine)
+    db = Session()
+    seed_database(db)
+    yield db
+    db.close()
+
+def test_api_auth_login(api_db):
+    res = auth.login(UserLogin(username="admin", password="AdminPassword2026!"), db=api_db)
+    assert res.role == "admin"
+    assert res.access_token is not None
+
+def test_api_chat_message(api_db):
+    mock_request = MagicMock()
+    mock_request.client.host = "127.0.0.1"
+    
+    req = ChatRequest(
+        session_id="test-session-api",
+        message="Quelles sont les filières d'ingénieur proposées ?",
+        language="fr",
+        profile="eleve"
+    )
+    res = chat.send_chat_message(req, request=mock_request, db=api_db)
+    assert len(res.sources) > 0
+    assert any(term in res.reply.lower() for term in ["filière", "génie", "informatique", "enspd"])
+
+def test_api_orientation_evaluate():
+    req = OrientationRequest(
+        answers=[
+            OrientationStepAnswer(question_id=1, selected_option="A"),
+            OrientationStepAnswer(question_id=2, selected_option="A"),
+            OrientationStepAnswer(question_id=3, selected_option="A")
+        ],
+        language="fr"
+    )
+    res = orientation.evaluate_orientation(req)
+    assert len(res.recommended_tracks) >= 2
+    assert res.recommended_tracks[0].field_code == "FIL-GI"
+
+def test_api_emergency_toggle(api_db):
+    mock_payload = {"sub": "admin-id", "role": "admin"}
+    res = emergency.toggle_emergency(active=True, payload=mock_payload, db=api_db)
+    assert res.is_active is True
+
+    res2 = emergency.toggle_emergency(active=False, payload=mock_payload, db=api_db)
+    assert res2.is_active is False
