@@ -272,7 +272,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 <button
                   key={i}
                   onClick={() => onSendMessage(prompt)}
-                  className="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-amber-50/60 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 hover:text-poly-navy dark:hover:text-white border border-slate-200/80 dark:border-slate-700 text-xs font-medium transition flex items-center justify-between group"
+                  className="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-amber-50/60 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-poly-navy dark:hover:text-white border border-slate-200/80 dark:border-slate-700 text-xs font-medium transition flex items-center justify-between group"
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-poly-gold font-bold">•</span>
@@ -342,7 +342,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                           {sources.map((s, idx) => (
                             <div
                               key={idx}
-                              className="bg-white dark:bg-slate-800/80 p-3 rounded-lg border border-slate-200 dark:border-slate-750 space-y-1.5 shadow-2xs"
+                              className="bg-white dark:bg-slate-800/80 p-3 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-2xs"
                             >
                               <div className="flex items-start justify-between gap-2">
                                 <span className="font-bold text-poly-navy dark:text-blue-300 text-xs">

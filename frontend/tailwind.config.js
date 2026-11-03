@@ -8,6 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        slate: {
+          750: "#243247",
+          850: "#132136",
+        },
         poly: {
           navy: "#0e2a47",
           deepNavy: "#091a2c",

@@ -149,10 +149,14 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
         <div className="flex items-center space-x-2 sm:space-x-4 text-xs font-semibold">
           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
             currentStep === 0
-              ? 'bg-poly-navy text-white shadow-xs font-bold'
-              : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+              ? 'bg-poly-navy dark:bg-slate-800 text-white shadow-xs font-bold border border-transparent dark:border-slate-700'
+              : 'bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400'
           }`}>
-            <span className="w-5 h-5 rounded-md bg-poly-gold text-slate-950 flex items-center justify-center text-[11px] font-bold">1</span>
+            <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[11px] font-bold ${
+              currentStep === 0
+                ? 'bg-poly-gold text-slate-950'
+                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+            }`}>1</span>
             <span>{isEn ? "Information" : "Informations"}</span>
           </div>
 
@@ -160,10 +164,14 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
             currentStep === 1
-              ? 'bg-poly-navy text-white shadow-xs font-bold'
-              : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+              ? 'bg-poly-navy dark:bg-slate-800 text-white shadow-xs font-bold border border-transparent dark:border-slate-700'
+              : 'bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400'
           }`}>
-            <span className="w-5 h-5 rounded-md bg-poly-gold text-slate-950 flex items-center justify-center text-[11px] font-bold">2</span>
+            <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[11px] font-bold ${
+              currentStep === 1
+                ? 'bg-poly-gold text-slate-950'
+                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+            }`}>2</span>
             <span>{isEn ? "Preferences" : "Préférences"}</span>
           </div>
 
@@ -171,10 +179,14 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
             currentStep === 2
-              ? 'bg-poly-navy text-white shadow-xs font-bold'
-              : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+              ? 'bg-poly-navy dark:bg-slate-800 text-white shadow-xs font-bold border border-transparent dark:border-slate-700'
+              : 'bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400'
           }`}>
-            <span className="w-5 h-5 rounded-md bg-poly-gold text-slate-950 flex items-center justify-center text-[11px] font-bold">3</span>
+            <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[11px] font-bold ${
+              currentStep === 2
+                ? 'bg-poly-gold text-slate-950'
+                : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+            }`}>3</span>
             <span>{isEn ? "Results" : "Résultat"}</span>
           </div>
         </div>
@@ -204,11 +216,15 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                   onClick={() => setSelectedProfile(p.id)}
                   className={`p-6 rounded-2xl border-2 transition text-left space-y-3 cursor-pointer group ${
                     isSelected
-                      ? 'border-poly-navy dark:border-poly-gold bg-amber-50/50 dark:bg-poly-gold/10 shadow-sm'
-                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-850'
+                      ? 'border-poly-gold bg-amber-50/60 dark:bg-poly-gold/15 shadow-sm'
+                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-800/90 hover:dark:bg-slate-800'
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform ${
+                    isSelected
+                      ? 'bg-poly-gold/20 text-poly-goldDark dark:text-poly-gold'
+                      : 'bg-slate-100 dark:bg-slate-700 text-poly-navy dark:text-poly-gold'
+                  }`}>
                     {p.icon}
                   </div>
                   <div>
@@ -266,10 +282,10 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                 <button
                   key={pref.id}
                   onClick={() => setSelectedPreference(pref.id)}
-                  className={`p-6 rounded-2xl border-2 transition text-left space-y-2 cursor-pointer ${
+                  className={`p-6 rounded-2xl border-2 transition text-left space-y-2 cursor-pointer group ${
                     isSelected
-                      ? 'border-poly-navy dark:border-poly-gold bg-amber-50/50 dark:bg-poly-gold/10 shadow-sm'
-                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-850'
+                      ? 'border-poly-gold bg-amber-50/60 dark:bg-poly-gold/15 shadow-sm'
+                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-800/90 hover:dark:bg-slate-800'
                   }`}
                 >
                   <h4 className="font-extrabold text-base text-poly-navy dark:text-white">
@@ -286,7 +302,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <button
               onClick={handleBack}
-              className="text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-poly-navy dark:hover:text-white flex items-center gap-1.5 transition"
+              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-poly-navy dark:hover:text-white flex items-center gap-1.5 transition cursor-pointer"
             >
               <ArrowLeft size={14} />
               <span>{isEn ? "Back" : "Retour"}</span>
