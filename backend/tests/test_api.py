@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.db.database import Base
 from app.db.seed_data import seed_database
-from app.api.v1 import auth, chat, orientation, emergency
+from app.api.v1 import auth, chat, orientation, emergency, analytics, sheets, callbacks
 from app.schemas.schemas import UserLogin, ChatRequest, OrientationRequest, OrientationStepAnswer
 
 @pytest.fixture
@@ -56,3 +56,34 @@ def test_api_emergency_toggle(api_db):
 
     res2 = emergency.toggle_emergency(active=False, payload=mock_payload, db=api_db)
     assert res2.is_active is False
+
+def test_api_analytics_dashboard_and_timeline(api_db):
+    mock_payload = {"sub": "admin-id", "role": "admin"}
+    stats = analytics.get_dashboard_stats(payload=mock_payload, db=api_db)
+    assert stats.total_conversations >= 0
+    assert stats.satisfaction_rate >= 0.0
+
+    for period in ["7d", "30d", "90d", "180d", "365d"]:
+        tl = analytics.get_analytics_timeline(period=period, payload=mock_payload, db=api_db)
+        assert len(tl.data) > 0
+        assert tl.total_in_period >= 0
+
+def test_api_sheets_list(api_db):
+    sheets_list = sheets.list_sheets(status="validated", category=None, language=None, db=api_db)
+    assert len(sheets_list) >= 10
+
+def test_api_director_precision_guard(api_db):
+    mock_request = MagicMock()
+    mock_request.client.host = "127.0.0.1"
+
+    req = ChatRequest(
+        session_id="test-session-precision",
+        message="Qui est le directeur de l'ENSPD ?",
+        language="fr",
+        profile="visiteur"
+    )
+    res = chat.send_chat_message(req, request=mock_request, db=api_db)
+    reply = res.reply
+    assert "MOUANGUE" in reply or "mouangue" in reply.lower()
+    assert res.relevance_score >= 0.90
+

@@ -156,6 +156,21 @@ export const App: React.FC = () => {
     setCurrentTab(tab);
   };
 
+  // Fullscreen Login Page matching mockup exactly without navbar
+  if (currentTab === 'admin' && !authToken) {
+    return (
+      <LoginPage
+        onLoginSuccess={(token, role, user) => {
+          setAuthToken(token);
+          setAuthRole(role);
+          setAuthUsername(user);
+        }}
+        onCancel={() => setCurrentTab('home')}
+        language={language}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
       <Navbar
