@@ -158,16 +158,16 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
         <div className="relative z-10 space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#d4af37]/20 border border-[#d4af37]/40 text-[#d4af37] text-xs font-bold uppercase tracking-wider">
             <Calendar size={14} />
-            <span>Actualités & Agenda</span>
+            <span>{isEn ? "News & Schedule" : "Actualités & Agenda"}</span>
           </div>
         </div>
 
         {/* Bottom Motto in Serif Italics matching mockup */}
         <div className="relative z-10 mt-auto pb-4">
           <div className="font-serif italic text-2xl xl:text-3xl text-white font-bold leading-tight drop-shadow-lg">
-            S'informer,
+            {isEn ? "Learn," : "S'informer,"}
             <div className="text-white font-serif italic text-2xl xl:text-3xl mt-1">
-              S'orienter, Réussir
+              {isEn ? "Orient, Succeed" : "S'orienter, Réussir"}
             </div>
           </div>
           <div className="h-1 w-20 bg-[#d4af37] mt-3.5 mb-6 rounded-full" />
@@ -455,7 +455,7 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
               {selectedEvent.agenda && (
                 <div className="space-y-2">
                   <h4 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Programme prévisionnel
+                    {isEn ? "Event Agenda" : "Programme prévisionnel"}
                   </h4>
                   <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
                     {selectedEvent.agenda.map((item, idx) => (
@@ -474,7 +474,7 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
                   onClick={() => setSelectedEvent(null)}
                   className="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
                 >
-                  Fermer
+                  {isEn ? "Close" : "Fermer"}
                 </button>
 
                 <button
@@ -486,7 +486,7 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
                   className="px-5 py-2.5 rounded-lg bg-[#0a192f] hover:bg-[#071324] text-white text-xs font-extrabold flex items-center gap-2 shadow-sm transition cursor-pointer"
                 >
                   <MessageSquare size={14} className="text-[#d4af37]" />
-                  <span>Poser une question à Poly</span>
+                  <span>{isEn ? "Ask Poly about this event" : "Poser une question à Poly"}</span>
                 </button>
               </div>
             </div>

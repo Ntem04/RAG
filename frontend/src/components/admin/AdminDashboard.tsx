@@ -232,7 +232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               }`}
             >
               <BarChart3 size={16} />
-              <span>Tableau de bord</span>
+              <span>{isEn ? "Dashboard" : "Tableau de bord"}</span>
             </button>
 
             <button
@@ -244,7 +244,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               }`}
             >
               <MessageSquare size={16} />
-              <span>Demandes de rappel</span>
+              <span>{isEn ? "Callback Requests" : "Demandes de rappel"}</span>
               {callbacks.filter(c => c.status === 'pending').length > 0 && (
                 <span className="ml-auto bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-md">
                   {callbacks.filter(c => c.status === 'pending').length}
@@ -261,7 +261,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               }`}
             >
               <FileText size={16} />
-              <span>Base de connaissances</span>
+              <span>{isEn ? "Knowledge Base" : "Base de connaissances"}</span>
             </button>
 
             <button
@@ -273,7 +273,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               }`}
             >
               <HelpCircle size={16} />
-              <span>Questions non traitées</span>
+              <span>{isEn ? "Unanswered Questions" : "Questions non traitées"}</span>
               {unanswered.filter(u => u.status === 'pending').length > 0 && (
                 <span className="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-md">
                   {unanswered.filter(u => u.status === 'pending').length}
@@ -290,7 +290,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               }`}
             >
               <Settings size={16} />
-              <span>Paramètres</span>
+              <span>{isEn ? "Settings" : "Paramètres"}</span>
             </button>
           </nav>
         </div>
@@ -299,14 +299,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="pt-4 border-t border-slate-800 space-y-3">
           <div className="px-2">
             <div className="text-xs text-white font-bold">{username}</div>
-            <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Rôle : {role}</div>
+            <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">{isEn ? "Role" : "Rôle"} : {role}</div>
           </div>
           <button
             onClick={onLogout}
             className="w-full flex items-center gap-2 px-3.5 py-2 rounded-md text-xs text-slate-400 hover:text-red-400 hover:bg-red-950/20 transition cursor-pointer"
           >
             <LogOut size={15} />
-            <span>Déconnexion</span>
+            <span>{isEn ? "Logout" : "Déconnexion"}</span>
           </button>
         </div>
       </aside>
@@ -320,10 +320,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  Vue d'ensemble
+                  {isEn ? "Overview Dashboard" : "Vue d'ensemble"}
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Statistiques et métriques de consultation du tuteur Poly
+                  {isEn ? "Statistics and consultation metrics of Poly assistant" : "Statistiques et métriques de consultation du tuteur Poly"}
                 </p>
               </div>
 
@@ -333,11 +333,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   onChange={(e) => setTimelinePeriod(e.target.value as any)}
                   className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer shadow-2xs"
                 >
-                  <option value="7d">7 derniers jours</option>
-                  <option value="30d">30 derniers jours (1 mois)</option>
-                  <option value="90d">3 derniers mois</option>
-                  <option value="180d">6 derniers mois</option>
-                  <option value="365d">1 an (Toute l'année)</option>
+                  <option value="7d">{isEn ? "Last 7 days" : "7 derniers jours"}</option>
+                  <option value="30d">{isEn ? "Last 30 days (1 month)" : "30 derniers jours (1 mois)"}</option>
+                  <option value="90d">{isEn ? "Last 3 months" : "3 derniers mois"}</option>
+                  <option value="180d">{isEn ? "Last 6 months" : "6 derniers mois"}</option>
+                  <option value="365d">{isEn ? "Full Year (1 Year)" : "1 an (Toute l'année)"}</option>
                 </select>
               </div>
             </div>
@@ -362,7 +362,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       {stats ? (stats.total_questions ?? stats.total_messages ?? 0) : 0}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                      Questions posées
+                      {isEn ? "Questions asked" : "Questions posées"}
                     </div>
                   </div>
 
@@ -378,8 +378,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
                       {stats && (stats.positive_ratings + stats.negative_ratings) > 0
-                        ? `Taux de satisfaction (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})`
-                        : "Taux de satisfaction (0 avis)"}
+                        ? (isEn ? `Satisfaction rate (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})` : `Taux de satisfaction (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})`)
+                        : (isEn ? "Satisfaction rate (0 reviews)" : "Taux de satisfaction (0 avis)")}
                     </div>
                   </div>
 
@@ -392,7 +392,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       {stats ? stats.total_conversations : 0}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                      Utilisateurs uniques
+                      {isEn ? "Unique visitors" : "Utilisateurs uniques"}
                     </div>
                   </div>
 
@@ -405,7 +405,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       {sheets.length}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                      Fiches officielles validées
+                      {isEn ? "Validated official sheets" : "Fiches officielles validées"}
                     </div>
                   </div>
                 </>
@@ -418,25 +418,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <div>
                   <div className="flex items-center gap-2.5">
                     <h3 className="text-base sm:text-lg font-black text-poly-navy dark:text-white">
-                      Activité des conversations
+                      {isEn ? "Conversation Activity" : "Activité des conversations"}
                     </h3>
                     <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
-                      {timelineGrowth >= 0 ? `+${timelineGrowth}%` : `${timelineGrowth}%`} sur la période
+                      {isEn
+                        ? `${timelineGrowth >= 0 ? `+${timelineGrowth}%` : `${timelineGrowth}%`} over period`
+                        : `${timelineGrowth >= 0 ? `+${timelineGrowth}%` : `${timelineGrowth}%`} sur la période`}
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    Volume : <span className="font-bold text-poly-navy dark:text-white">{timelineTotal.toLocaleString()}</span> consultations enregistrées
+                    {isEn ? "Volume: " : "Volume : "}<span className="font-bold text-poly-navy dark:text-white">{timelineTotal.toLocaleString()}</span> {isEn ? "consultations recorded" : "consultations enregistrées"}
                   </p>
                 </div>
 
                 {/* Period Selector (7J, 1 Mois, 3 Mois, 6 Mois, 1 An) */}
                 <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-md border border-slate-200 dark:border-slate-700/60 text-xs font-bold">
                   {[
-                    { id: '7d' as const, label: '7J' },
-                    { id: '30d' as const, label: '1 Mois' },
-                    { id: '90d' as const, label: '3 Mois' },
-                    { id: '180d' as const, label: '6 Mois' },
-                    { id: '365d' as const, label: '1 An' }
+                    { id: '7d' as const, label: isEn ? '7D' : '7J' },
+                    { id: '30d' as const, label: isEn ? '1 Month' : '1 Mois' },
+                    { id: '90d' as const, label: isEn ? '3 Months' : '3 Mois' },
+                    { id: '180d' as const, label: isEn ? '6 Months' : '6 Mois' },
+                    { id: '365d' as const, label: isEn ? '1 Year' : '1 An' }
                   ].map((btn) => (
                     <button
                       key={btn.id}
@@ -550,10 +552,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  Base de connaissances
+                  {isEn ? "Knowledge Base" : "Base de connaissances"}
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Gestion et validation des fiches officielles exploitées par Poly
+                  {isEn ? "Management and validation of official knowledge sheets" : "Gestion et validation des fiches officielles exploitées par Poly"}
                 </p>
               </div>
 
@@ -575,7 +577,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   className="bg-poly-navy hover:bg-poly-deepNavy text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
                 >
                   <Plus size={16} className="text-poly-gold" />
-                  <span>Ajouter un article</span>
+                  <span>{isEn ? "Add sheet" : "Ajouter un article"}</span>
                 </button>
               )}
             </div>
@@ -587,7 +589,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 type="text"
                 value={sheetSearch}
                 onChange={(e) => setSheetSearch(e.target.value)}
-                placeholder="Rechercher un article..."
+                placeholder={isEn ? "Search knowledge sheet..." : "Rechercher un article..."}
                 className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-poly-navy"
               />
             </div>
@@ -596,11 +598,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                  <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px]">
                     <tr>
-                      <th className="p-4">Titre</th>
-                      <th className="p-4">Catégorie</th>
-                      <th className="p-4">Statut</th>
+                      <th className="p-4">{isEn ? "Title" : "Titre"}</th>
+                      <th className="p-4">{isEn ? "Category" : "Catégorie"}</th>
+                      <th className="p-4">{isEn ? "Status" : "Statut"}</th>
                       <th className="p-4 text-right">Actions</th>
                     </tr>
                   </thead>
@@ -632,7 +634,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
                             }`}>
                               <span className="w-1.5 h-1.5 rounded-xs bg-current" />
-                              {sheet.status === 'validated' ? 'Validé' : 'En révision'}
+                              {sheet.status === 'validated' ? (isEn ? 'Validated' : 'Validé') : (isEn ? 'In review' : 'En révision')}
                             </span>
                           </td>
                           <td className="p-4 text-right">
@@ -641,7 +643,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 <button
                                   onClick={() => handleValidateSheet(sheet.id)}
                                   className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition"
-                                  title="Valider la fiche"
+                                  title={isEn ? "Validate sheet" : "Valider la fiche"}
                                 >
                                   <Check size={14} />
                                 </button>
@@ -650,7 +652,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 <button
                                   onClick={() => handleOpenEdit(sheet)}
                                   className="p-1.5 rounded-lg text-slate-500 hover:text-poly-navy dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-                                  title="Modifier"
+                                  title={isEn ? "Edit" : "Modifier"}
                                 >
                                   <Edit3 size={14} />
                                 </button>
@@ -659,7 +661,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 <button
                                   onClick={() => handleDeleteSheet(sheet.id)}
                                   className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                  title="Supprimer"
+                                  title={isEn ? "Delete" : "Supprimer"}
                                 >
                                   <Trash2 size={14} />
                                 </button>
@@ -675,7 +677,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               {/* Pagination from Mockup 08 */}
               <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
-                <span>{filteredSheets.length} fiches enregistrées</span>
+                <span>{filteredSheets.length} {isEn ? "registered sheets" : "fiches enregistrées"}</span>
                 <div className="flex items-center space-x-1 font-semibold">
                   <button className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30">
                     <ChevronLeft size={14} />
@@ -695,10 +697,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="space-y-6 animate-fade-in">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                Questions non répondues
+                {isEn ? "Unanswered Questions" : "Questions non traitées"}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Questions sous le seuil de similarité nécessitant la création de nouvelles fiches (EA-07)
+                {isEn ? "Queries below similarity threshold requiring new sheets (EA-07)" : "Questions sous le seuil de similarité nécessitant la création de nouvelles fiches (EA-07)"}
               </p>
             </div>
 
@@ -710,7 +712,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   type="text"
                   value={unansweredSearch}
                   onChange={(e) => setUnansweredSearch(e.target.value)}
-                  placeholder="Rechercher une question..."
+                  placeholder={isEn ? "Search question..." : "Rechercher une question..."}
                   className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-poly-navy"
                 />
               </div>
@@ -720,9 +722,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 onChange={(e) => setUnansweredStatusFilter(e.target.value)}
                 className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 focus:outline-none"
               >
-                <option value="all">Tous statuts</option>
-                <option value="pending">Non traitée</option>
-                <option value="reviewed">Traitée</option>
+                <option value="all">{isEn ? "All statuses" : "Tous statuts"}</option>
+                <option value="pending">{isEn ? "Pending" : "Non traitée"}</option>
+                <option value="reviewed">{isEn ? "Reviewed" : "Traitée"}</option>
               </select>
             </div>
 
@@ -730,12 +732,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                  <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px]">
                     <tr>
                       <th className="p-4">#</th>
                       <th className="p-4">Question</th>
                       <th className="p-4">Date</th>
-                      <th className="p-4">Statut</th>
+                      <th className="p-4">{isEn ? "Status" : "Statut"}</th>
                       <th className="p-4 text-right">Action</th>
                     </tr>
                   </thead>
@@ -749,7 +751,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     ) : filteredUnanswered.length === 0 ? (
                       <tr>
                         <td colSpan={5} className="p-8 text-center text-slate-400">
-                          Aucune question sans réponse enregistrée.
+                          {isEn ? "No unanswered questions recorded." : "Aucune question sans réponse enregistrée."}
                         </td>
                       </tr>
                     ) : (
@@ -768,7 +770,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400'
                                 : 'bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400'
                             }`}>
-                              {q.status === 'reviewed' ? 'Traitée' : 'Non traitée'}
+                              {q.status === 'reviewed' ? (isEn ? 'Reviewed' : 'Traitée') : (isEn ? 'Pending' : 'Non traitée')}
                             </span>
                           </td>
                           <td className="p-4 text-right">
@@ -787,7 +789,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                               }}
                               className="text-[11px] font-bold text-poly-navy dark:text-poly-gold hover:underline"
                             >
-                              Créer fiche
+                              {isEn ? "Create sheet" : "Créer fiche"}
                             </button>
                           </td>
                         </tr>
@@ -805,26 +807,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="space-y-6 animate-fade-in max-w-4xl">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                Paramètres
+                {isEn ? "Settings" : "Paramètres"}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Configuration générale et interrupteur d'urgence du tuteur Poly
+                {isEn ? "General configuration and emergency switch of Poly" : "Configuration générale et interrupteur d'urgence du tuteur Poly"}
               </p>
             </div>
 
             {/* Tabs from Mockup 10 */}
             <div className="flex items-center space-x-1 border-b border-slate-200 dark:border-slate-800 pb-2 text-xs font-bold">
               <button className="px-3.5 py-1.5 rounded-lg bg-poly-navy text-white shadow-2xs">
-                Général
+                {isEn ? "General" : "Général"}
               </button>
               <button className="px-3.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white">
-                Sécurité
+                {isEn ? "Security" : "Sécurité"}
               </button>
               <button className="px-3.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white">
-                Rôles & Accès
+                {isEn ? "Roles & Access" : "Rôles & Accès"}
               </button>
               <button className="px-3.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white">
-                Langues
+                {isEn ? "Languages" : "Langues"}
               </button>
             </div>
 
@@ -832,17 +834,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-4">
               <div>
                 <h3 className="font-extrabold text-base text-poly-navy dark:text-white">
-                  Informations du guide
+                  {isEn ? "Guide Profile" : "Informations du guide"}
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Personnalisez le comportement et l'identité de Poly.
+                  {isEn ? "Configure the identity and persona of Poly." : "Personnalisez le comportement et l'identité de Poly."}
                 </p>
               </div>
 
               <div className="space-y-3 max-w-lg">
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Nom du service
+                    {isEn ? "Service Name" : "Nom du service"}
                   </label>
                   <input
                     type="text"
@@ -852,17 +854,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Message d'accueil par défaut
+                    {isEn ? "Default Greeting" : "Message d'accueil par défaut"}
                   </label>
                   <textarea
                     rows={2}
-                    defaultValue="Bonjour ! Je suis Poly, votre guide d'orientation. Posez-moi vos questions sur l'ENSPD."
+                    defaultValue={isEn ? "Hello! I am Poly, your ENSPD academic guide. Ask me any question." : "Bonjour ! Je suis Poly, votre guide d'orientation. Posez-moi vos questions sur l'ENSPD."}
                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs"
                   />
                 </div>
 
                 <button className="bg-poly-gold hover:bg-poly-goldHover text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl transition shadow-xs cursor-pointer">
-                  Enregistrer les modifications
+                  {isEn ? "Save changes" : "Enregistrer les modifications"}
                 </button>
               </div>
             </div>
@@ -874,11 +876,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <div className="flex items-center gap-2">
                     <Power size={17} className={emergencyActive ? "text-red-500" : "text-slate-400"} />
                     <h3 className="font-extrabold text-base text-poly-navy dark:text-white">
-                      Maintenance & Interrupteur d'urgence (EA-10)
+                      {isEn ? "Maintenance & Emergency Switch (EA-10)" : "Maintenance & Interrupteur d'urgence (EA-10)"}
                     </h3>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-md">
-                    Activez ce mode en cas d'incident ou de maintenance imprévue pour afficher immédiatement le message d'interruption aux visiteurs.
+                    {isEn
+                      ? "Activate this mode during unexpected incidents to immediately display the maintenance alert to all campus kiosks."
+                      : "Activez ce mode en cas d'incident ou de maintenance imprévue pour afficher immédiatement le message d'interruption aux visiteurs."}
                   </p>
                 </div>
 
@@ -895,7 +899,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               {emergencyActive && (
                 <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300 font-medium">
-                  ⚠️ Mode maintenance actif : les conversations sont suspendues et renvoient vers le stand d'accueil de l'ENSPD.
+                  {isEn
+                    ? "⚠️ Maintenance mode active: chat conversations are paused and direct visitors to the ENSPD welcome desk."
+                    : "⚠️ Mode maintenance actif : les conversations sont suspendues et renvoient vers le stand d'accueil de l'ENSPD."}
                 </div>
               )}
             </div>
@@ -907,10 +913,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="space-y-6 animate-fade-in">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                Demandes de rappel téléphonique
+                {isEn ? "Telephone Callback Requests" : "Demandes de rappel téléphonique"}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Coordonnées laissées par les visiteurs pour être recontactés par un conseiller ENSPD
+                {isEn ? "Contact details left by visitors to be reached by an ENSPD advisor" : "Coordonnées laissées par les visiteurs pour être recontactés par un conseiller ENSPD"}
               </p>
             </div>
 
@@ -919,10 +925,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <table className="w-full text-xs text-left">
                   <thead className="bg-slate-100/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px]">
                     <tr>
-                      <th className="p-4">Visiteur</th>
-                      <th className="p-4">Téléphone</th>
-                      <th className="p-4">Sujet</th>
-                      <th className="p-4">Statut</th>
+                      <th className="p-4">{isEn ? "Visitor" : "Visiteur"}</th>
+                      <th className="p-4">{isEn ? "Phone" : "Téléphone"}</th>
+                      <th className="p-4">{isEn ? "Subject" : "Sujet"}</th>
+                      <th className="p-4">{isEn ? "Status" : "Statut"}</th>
                       <th className="p-4 text-right">Action</th>
                     </tr>
                   </thead>
@@ -930,14 +936,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     {callbacks.length === 0 ? (
                       <tr>
                         <td colSpan={5} className="p-8 text-center text-slate-500 dark:text-slate-400 font-medium">
-                          Aucune demande de rappel enregistrée pour le moment.
+                          {isEn ? "No callback requests recorded yet." : "Aucune demande de rappel enregistrée pour le moment."}
                         </td>
                       </tr>
                     ) : (
                       callbacks.map((cb) => {
-                        const visitorName = cb.visitor_name || (cb as any).full_name || "Visiteur anonyme";
+                        const visitorName = cb.visitor_name || (cb as any).full_name || (isEn ? "Anonymous Visitor" : "Visiteur anonyme");
                         const phone = cb.contact_info || (cb as any).phone_number || "—";
-                        const subject = cb.interested_field || (cb as any).topic || "Orientation générale";
+                        const subject = cb.interested_field || (cb as any).topic || (isEn ? "General Orientation" : "Orientation générale");
                         const isProcessed = cb.status === 'resolved' || cb.status === ('processed' as any);
 
                         return (
@@ -957,7 +963,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                   ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
                                   : 'bg-amber-50 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800'
                               }`}>
-                                {isProcessed ? 'Traité' : 'En attente'}
+                                {isProcessed ? (isEn ? 'Processed' : 'Traité') : (isEn ? 'Pending' : 'En attente')}
                               </span>
                             </td>
                             <td className="p-4 text-right">
@@ -969,7 +975,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 }}
                                 className="text-xs font-bold text-poly-navy dark:text-poly-gold hover:underline cursor-pointer"
                               >
-                                {isProcessed ? 'Marquer en attente' : 'Marquer traité'}
+                                {isProcessed ? (isEn ? 'Mark pending' : 'Marquer en attente') : (isEn ? 'Mark processed' : 'Marquer traité')}
                               </button>
                             </td>
                           </tr>

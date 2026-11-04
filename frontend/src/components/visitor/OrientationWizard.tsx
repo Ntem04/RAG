@@ -56,38 +56,38 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
       options: [
         {
           key: "A",
-          tag: "Sciences Pures",
+          tag: isEn ? "Pure Sciences" : "Sciences Pures",
           icon: <Atom size={22} className="text-[#d4af37]" />,
           label: isEn ? "Bac C / D (Mathematics, Physics & Life Sciences)" : "Bac C / D (Mathématiques, Sciences Physiques & SVT)",
-          sub: "Maths pures, physique fondamentale, chimie et sciences appliquées"
+          sub: isEn ? "Pure math, fundamental physics, chemistry and applied sciences" : "Maths pures, physique fondamentale, chimie et sciences appliquées"
         },
         {
           key: "B",
-          tag: "Numérique & Algorithmes",
+          tag: isEn ? "Digital & Algorithms" : "Numérique & Algorithmes",
           icon: <Code2 size={22} className="text-[#d4af37]" />,
           label: isEn ? "Bac E / TI (Mathematics, Technology & Computer Science)" : "Bac E / TI (Maths, Technologies & Informatique)",
-          sub: "Algorithmique, programmation, robotique et sciences de l'ingénieur"
+          sub: isEn ? "Algorithms, software coding, robotics and engineering sciences" : "Algorithmique, programmation, robotique et sciences de l'ingénieur"
         },
         {
           key: "C",
-          tag: "Industrie & BTP",
+          tag: isEn ? "Industry & Civil" : "Industrie & BTP",
           icon: <HardHat size={22} className="text-[#d4af37]" />,
           label: isEn ? "Bac F (F1 Mechanical, F2/F3 Electrical, F4 Civil)" : "Bac F (F1 Mécanique, F2/F3 Électrique, F4 Génie Civil)",
-          sub: "Spécialités technologiques industrielles, électrotechnique et bâtiment"
+          sub: isEn ? "Industrial technology specialties, electrical and civil engineering" : "Spécialités technologiques industrielles, électrotechnique et bâtiment"
         },
         {
           key: "D",
-          tag: "Cursus International",
+          tag: isEn ? "International Curriculum" : "Cursus International",
           icon: <GraduationCap size={22} className="text-[#d4af37]" />,
           label: isEn ? "GCE A-Level (Maths, Physics, Chemistry, Further Maths)" : "GCE A-Level (Maths, Physics, Chemistry, Further Maths)",
-          sub: "Sous-système anglophone ou baccalauréat scientifique international"
+          sub: isEn ? "Anglophone subsystem or international scientific baccalaureate" : "Sous-système anglophone ou baccalauréat scientifique international"
         },
         {
           key: "E",
-          tag: "Passerelle Supérieure",
+          tag: isEn ? "Higher Transfer" : "Passerelle Supérieure",
           icon: <Briefcase size={22} className="text-[#d4af37]" />,
           label: isEn ? "Associate Degree / BTS / Bachelor transfer" : "Bac Pro / BT / BTS ou Licence Scientifique",
-          sub: "Diplômes technologiques supérieurs ou réorientation vers l'ingénierie"
+          sub: isEn ? "Higher technological diploma, associate degree or reorientation" : "Diplômes technologiques supérieurs ou réorientation vers l'ingénierie"
         }
       ]
     },
@@ -99,16 +99,76 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
       title: isEn ? "Which engineering field excites you the most?" : "Quel grand domaine d'ingénierie vous passionne le plus ?",
       subtitle: isEn ? "Choose your primary technological interest among ENSPD's 10 departments." : "Choisissez votre domaine de prédilection parmi les 10 départements officiels de l'ENSPD.",
       options: [
-        { key: "A", tag: "IA & Réseaux", icon: <Cpu size={22} className="text-[#d4af37]" />, label: "Génie Informatique & Télécommunications (GIT)", sub: "Intelligence Artificielle, Cloud, Cybersécurité, Développement Logiciel & Données" },
-        { key: "B", tag: "Infrastructures", icon: <Building size={22} className="text-[#d4af37]" />, label: "Génie Civil (GCI)", sub: "Bâtiment, Ponts, Viaducs, Routes, Géotechnique & Grands Ouvrages d'Art" },
-        { key: "C", tag: "Énergie & Automates", icon: <Zap size={22} className="text-[#d4af37]" />, label: "Génie Électrique et Systèmes Intelligents (GESI)", sub: "Réseaux Smart Grids, Électronique de Puissance & Automates Industriels" },
-        { key: "D", tag: "Mobilité Propre", icon: <Car size={22} className="text-[#d4af37]" />, label: "Génie Automobile et Mécatronique (GAM)", sub: "Véhicules Hybrides/Électriques, Moteurs, Robotique Mobile & Diagnostic Embarqué" },
-        { key: "E", tag: "Océan & Logistique", icon: <Anchor size={22} className="text-[#d4af37]" />, label: "Génie Maritime et Portuaire (GMP)", sub: "Infrastructures Portuaires, Chantiers Navals, Génie Océanique & Logistique Maritime" },
-        { key: "F", tag: "Chimie & Santé", icon: <Beaker size={22} className="text-[#d4af37]" />, label: "Génie des Procédés (GPR)", sub: "Chimie Industrielle, Raffinage Pétrolier, Pharmacie & Bioprocédés Agroalimentaires" },
-        { key: "G", tag: "Transition Verte", icon: <SunMedium size={22} className="text-[#d4af37]" />, label: "Génie Énergétique (GEN)", sub: "Énergies Renouvelables, Solaire Photovoltaïque, Climatisation Industrielle & Froid" },
-        { key: "H", tag: "Industrie 4.0", icon: <Cog size={22} className="text-[#d4af37]" />, label: "Génie Mécanique (GME)", sub: "Conception CAO 3D, Usinage Numérique CNC, Chaudronnerie & Tuyauterie Industrielle" },
-        { key: "I", tag: "Sûreté & RSE", icon: <ShieldCheck size={22} className="text-[#d4af37]" />, label: "Génie QHSE & Environnement Industriel (QHSEI)", sub: "Sûreté Industrielle, Prévention des Risques, Dépollution & Certification ISO" },
-        { key: "J", tag: "Biomédical", icon: <Activity size={22} className="text-[#d4af37]" />, label: "Génie Physique & Technologies Biomédicales (GPH)", sub: "Capteurs Haute Précision, Photonique Laser, Physique Médicale & Radiothérapie" }
+        {
+          key: "A",
+          tag: isEn ? "AI & Networks" : "IA & Réseaux",
+          icon: <Cpu size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Computer Science & Telecommunications (GIT)" : "Génie Informatique & Télécommunications (GIT)",
+          sub: isEn ? "Artificial Intelligence, Cloud, Cybersecurity, Software & Data" : "Intelligence Artificielle, Cloud, Cybersécurité, Développement Logiciel & Données"
+        },
+        {
+          key: "B",
+          tag: isEn ? "Infrastructures" : "Infrastructures",
+          icon: <Building size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Civil Engineering (GCI)" : "Génie Civil (GCI)",
+          sub: isEn ? "Building, Bridges, Highways, Geotechnics & Major Structures" : "Bâtiment, Ponts, Viaducs, Routes, Géotechnique & Grands Ouvrages d'Art"
+        },
+        {
+          key: "C",
+          tag: isEn ? "Power & Automata" : "Énergie & Automates",
+          icon: <Zap size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Electrical Engineering & Smart Systems (GESI)" : "Génie Électrique et Systèmes Intelligents (GESI)",
+          sub: isEn ? "Smart Grids, Power Electronics & Industrial Automata" : "Réseaux Smart Grids, Électronique de Puissance & Automates Industriels"
+        },
+        {
+          key: "D",
+          tag: isEn ? "Clean Mobility" : "Mobilité Propre",
+          icon: <Car size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Automotive & Mechatronics (GAM)" : "Génie Automobile et Mécatronique (GAM)",
+          sub: isEn ? "Hybrid/Electric Vehicles, Motors, Mobile Robotics & Diagnostics" : "Véhicules Hybrides/Électriques, Moteurs, Robotique Mobile & Diagnostic Embarqué"
+        },
+        {
+          key: "E",
+          tag: isEn ? "Ocean & Logistics" : "Océan & Logistique",
+          icon: <Anchor size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Maritime & Port Engineering (GMP)" : "Génie Maritime et Portuaire (GMP)",
+          sub: isEn ? "Port Infrastructure, Shipyards, Oceanic Engineering & Logistics" : "Infrastructures Portuaires, Chantiers Navals, Génie Océanique & Logistique Maritime"
+        },
+        {
+          key: "F",
+          tag: isEn ? "Chemistry & Health" : "Chimie & Santé",
+          icon: <Beaker size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Process Engineering (GPR)" : "Génie des Procédés (GPR)",
+          sub: isEn ? "Industrial Chemistry, Petroleum Refining, Pharmacy & Agro Bioprocesses" : "Chimie Industrielle, Raffinage Pétrolier, Pharmacie & Bioprocédés Agroalimentaires"
+        },
+        {
+          key: "G",
+          tag: isEn ? "Green Transition" : "Transition Verte",
+          icon: <SunMedium size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Energy Engineering (GEN)" : "Génie Énergétique (GEN)",
+          sub: isEn ? "Renewable Energies, Solar Photovoltaics, Industrial HVAC & Cooling" : "Énergies Renouvelables, Solaire Photovoltaïque, Climatisation Industrielle & Froid"
+        },
+        {
+          key: "H",
+          tag: isEn ? "Industry 4.0" : "Industrie 4.0",
+          icon: <Cog size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Mechanical Engineering (GME)" : "Génie Mécanique (GME)",
+          sub: isEn ? "3D CAD Design, CNC Machining, Boilermaking & Industrial Piping" : "Conception CAO 3D, Usinage Numérique CNC, Chaudronnerie & Tuyauterie Industrielle"
+        },
+        {
+          key: "I",
+          tag: isEn ? "Safety & CSR" : "Sûreté & RSE",
+          icon: <ShieldCheck size={22} className="text-[#d4af37]" />,
+          label: isEn ? "QHSE & Industrial Environment (QHSEI)" : "Génie QHSE & Environnement Industriel (QHSEI)",
+          sub: isEn ? "Industrial Safety, Risk Prevention, Depollution & ISO Certification" : "Sûreté Industrielle, Prévention des Risques, Dépollution & Certification ISO"
+        },
+        {
+          key: "J",
+          tag: isEn ? "Biomedical" : "Biomédical",
+          icon: <Activity size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Physical Engineering & Biomedical Tech (GPH)" : "Génie Physique & Technologies Biomédicales (GPH)",
+          sub: isEn ? "High-Precision Sensors, Laser Photonics, Medical Physics & Radiotherapy" : "Capteurs Haute Précision, Photonique Laser, Physique Médicale & Radiothérapie"
+        }
       ]
     },
     {
@@ -119,14 +179,62 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
       title: isEn ? "Where do you envision yourself working on a daily basis?" : "Où vous imaginez-vous exercer avec le plus de plaisir au quotidien ?",
       subtitle: isEn ? "The day-to-day environment defines your professional comfort and impact." : "Votre lieu d'exercice quotidien reflète votre style d'ingénierie.",
       options: [
-        { key: "A", tag: "Espace Tech & Cloud", icon: <Cpu size={22} className="text-[#d4af37]" />, label: "Datacenter, studio logiciel ou laboratoire d'architecture cloud", sub: "Environnement high-tech connecté, stations multi-écrans et travail d'équipe agile" },
-        { key: "B", tag: "Grands Chantiers", icon: <Building size={22} className="text-[#d4af37]" />, label: "Grands chantiers extérieurs, autoroutes et ponts en construction", sub: "Pilotage direct sur le terrain au contact des équipes techniques de construction" },
-        { key: "C", tag: "Supervision Électrique", icon: <Zap size={22} className="text-[#d4af37]" />, label: "Centrale électrique, sous-station ou salle de commande automatisée", sub: "Supervision en temps réel des flux de puissance et des réseaux électriques intelligents" },
-        { key: "D", tag: "Labo Mécatronique", icon: <Car size={22} className="text-[#d4af37]" />, label: "Atelier mécatronique, banc d'essai moteur ou centre de diagnostic", sub: "Conception et tests dynamiques de systèmes robotisés et véhicules de nouvelle génération" },
-        { key: "E", tag: "Espace Maritime", icon: <Anchor size={22} className="text-[#d4af37]" />, label: "Terminal portuaire, quai de manutention ou chantier naval", sub: "Environnement maritime international, quais côtiers et logistique portuaire" },
-        { key: "F", tag: "Salle Blanche & Usine", icon: <Beaker size={22} className="text-[#d4af37]" />, label: "Unité pétrochimique, laboratoire pharmaceutique ou usine de synthèse", sub: "Transformation industrielle, réacteurs chimiques contrôlés et biotechnologies" },
-        { key: "G", tag: "Centrales Propres", icon: <SunMedium size={22} className="text-[#d4af37]" />, label: "Parcs solaires photovoltaïques, éoliens ou centrales d'énergie", sub: "Déploiement d'équipements renouvelables et réalisation d'audits d'efficacité énergétique" },
-        { key: "H", tag: "Bureau CAO 3D", icon: <Cog size={22} className="text-[#d4af37]" />, label: "Atelier d'usinage numérique CNC, bureau de CAO 3D ou métallurgie", sub: "Fabrication de composants mécaniques de précision et modélisation tridimensionnelle" }
+        {
+          key: "A",
+          tag: isEn ? "Tech Space & Cloud" : "Espace Tech & Cloud",
+          icon: <Cpu size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Datacenter, software studio or cloud architecture lab" : "Datacenter, studio logiciel ou laboratoire d'architecture cloud",
+          sub: isEn ? "Connected high-tech workspace, multi-screen stations and agile team" : "Environnement high-tech connecté, stations multi-écrans et travail d'équipe agile"
+        },
+        {
+          key: "B",
+          tag: isEn ? "Major Sites" : "Grands Chantiers",
+          icon: <Building size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Large construction sites, highways and bridges" : "Grands chantiers extérieurs, autoroutes et ponts en construction",
+          sub: isEn ? "Direct field supervision in contact with construction crews" : "Pilotage direct sur le terrain au contact des équipes techniques de construction"
+        },
+        {
+          key: "C",
+          tag: isEn ? "Electrical Dispatch" : "Supervision Électrique",
+          icon: <Zap size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Power plant, electrical substation or automated control room" : "Centrale électrique, sous-station ou salle de commande automatisée",
+          sub: isEn ? "Real-time supervision of power flows and smart energy networks" : "Supervision en temps réel des flux de puissance et des réseaux électriques intelligents"
+        },
+        {
+          key: "D",
+          tag: isEn ? "Mechatronics Lab" : "Labo Mécatronique",
+          icon: <Car size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Mechatronics workshop, engine test bench or diagnostic center" : "Atelier mécatronique, banc d'essai moteur ou centre de diagnostic",
+          sub: isEn ? "Design and dynamic testing of robotic systems and next-gen vehicles" : "Conception et tests dynamiques de systèmes robotisés et véhicules de nouvelle génération"
+        },
+        {
+          key: "E",
+          tag: isEn ? "Maritime Space" : "Espace Maritime",
+          icon: <Anchor size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Port terminal, handling dock or shipyard" : "Terminal portuaire, quai de manutention ou chantier naval",
+          sub: isEn ? "International maritime environment, coastal quays and port logistics" : "Environnement maritime international, quais côtiers et logistique portuaire"
+        },
+        {
+          key: "F",
+          tag: isEn ? "Clean Room & Plant" : "Salle Blanche & Usine",
+          icon: <Beaker size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Petrochemical unit, pharmaceutical lab or synthesis plant" : "Unité pétrochimique, laboratoire pharmaceutique ou usine de synthèse",
+          sub: isEn ? "Industrial transformation, controlled chemical reactors and biotech" : "Transformation industrielle, réacteurs chimiques contrôlés et biotechnologies"
+        },
+        {
+          key: "G",
+          tag: isEn ? "Clean Plants" : "Centrales Propres",
+          icon: <SunMedium size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Solar photovoltaic, wind farms or clean power stations" : "Parcs solaires photovoltaïques, éoliens ou centrales d'énergie",
+          sub: isEn ? "Deploying renewable equipment and conducting energy audits" : "Déploiement d'équipements renouvelables et réalisation d'audits d'efficacité énergétique"
+        },
+        {
+          key: "H",
+          tag: isEn ? "3D CAD Office" : "Bureau CAO 3D",
+          icon: <Cog size={22} className="text-[#d4af37]" />,
+          label: isEn ? "CNC machining workshop, 3D CAD office or metallurgy" : "Atelier d'usinage numérique CNC, bureau de CAO 3D ou métallurgie",
+          sub: isEn ? "Manufacturing precision mechanical parts and 3D modeling" : "Fabrication de composants mécaniques de précision et modélisation tridimensionnelle"
+        }
       ]
     },
     {
@@ -137,12 +245,48 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
       title: isEn ? "Which major technical challenge would you be proudest to accomplish?" : "Quel grand défi technique vous rendrait le plus fier d'avoir accompli ?",
       subtitle: isEn ? "Your ambition reflects the concrete problems you want to solve." : "Votre motivation à relever des défis réels pour le Cameroun et l'Afrique.",
       options: [
-        { key: "A", tag: "IA & Souveraineté", icon: <Cpu size={22} className="text-[#d4af37]" />, label: "Déployer un système d'IA sécurisé et souverain pour le diagnostic ou la finance", sub: "Algorithmes, modèles prédictifs et résilience cybernétique pour l'Afrique" },
-        { key: "B", tag: "Mégastructures", icon: <Building size={22} className="text-[#d4af37]" />, label: "Diriger la réalisation d'un viaduc autoroutier ou pont suspendu majeur", sub: "Ouvrages durables résistant aux contraintes climatiques et sismiques extrêmes" },
-        { key: "C", tag: "Smart Grid National", icon: <Zap size={22} className="text-[#d4af37]" />, label: "Rendre un réseau électrique national capable d'intégrer 100% d'énergie propre", sub: "Gestion intelligente des charges, micro-réseaux et stockage d'énergie haute capacité" },
-        { key: "D", tag: "Véhicule Tropicalisé", icon: <Car size={22} className="text-[#d4af37]" />, label: "Développer le groupe motopropulseur d'un véhicule électrique tropicalisé", sub: "Mobilité propre, mécatronique automobile et autonomie adaptée aux réalités locales" },
-        { key: "E", tag: "Hub Maritime", icon: <Anchor size={22} className="text-[#d4af37]" />, label: "Agrandir un port maritime pour accueillir les plus grands porte-conteneurs", sub: "Dragage des chenaux, quais haute capacité et modernisation logistique" },
-        { key: "F", tag: "Chimie Verte", icon: <Beaker size={22} className="text-[#d4af37]" />, label: "Concevoir une unité de synthèse pharmaceutique ou de raffinage écologique", sub: "Chimie verte, valorisation de la biomasse locale et fabrication de médicaments" }
+        {
+          key: "A",
+          tag: isEn ? "AI & Sovereignty" : "IA & Souveraineté",
+          icon: <Cpu size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Deploy a sovereign and secure AI system for healthcare or finance" : "Déployer un système d'IA sécurisé et souverain pour le diagnostic ou la finance",
+          sub: isEn ? "Algorithms, predictive models and cyber resilience for Africa" : "Algorithmes, modèles prédictifs et résilience cybernétique pour l'Afrique"
+        },
+        {
+          key: "B",
+          tag: isEn ? "Megastructures" : "Mégastructures",
+          icon: <Building size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Lead the construction of a major highway viaduct or suspension bridge" : "Diriger la réalisation d'un viaduc autoroutier ou pont suspendu majeur",
+          sub: isEn ? "Durable structures resisting extreme climate and seismic constraints" : "Ouvrages durables résistant aux contraintes climatiques et sismiques extrêmes"
+        },
+        {
+          key: "C",
+          tag: isEn ? "National Smart Grid" : "Smart Grid National",
+          icon: <Zap size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Enable a national power grid to integrate 100% clean energy" : "Rendre un réseau électrique national capable d'intégrer 100% d'énergie propre",
+          sub: isEn ? "Smart load management, micro-grids and high-capacity storage" : "Gestion intelligente des charges, micro-réseaux et stockage d'énergie haute capacité"
+        },
+        {
+          key: "D",
+          tag: isEn ? "Adapted Vehicle" : "Véhicule Tropicalisé",
+          icon: <Car size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Develop the powertrain for a tropicalized electric vehicle" : "Développer le groupe motopropulseur d'un véhicule électrique tropicalisé",
+          sub: isEn ? "Clean mobility, automotive mechatronics and adapted local range" : "Mobilité propre, mécatronique automobile et autonomie adaptée aux réalités locales"
+        },
+        {
+          key: "E",
+          tag: isEn ? "Maritime Hub" : "Hub Maritime",
+          icon: <Anchor size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Expand a seaport to welcome the largest container ships" : "Agrandir un port maritime pour accueillir les plus grands porte-conteneurs",
+          sub: isEn ? "Channel dredging, high-capacity quays and logistical modernization" : "Dragage des chenaux, quais haute capacité et modernisation logistique"
+        },
+        {
+          key: "F",
+          tag: isEn ? "Green Chemistry" : "Chimie Verte",
+          icon: <Beaker size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Design an eco-friendly pharmaceutical synthesis or refining unit" : "Concevoir une unité de synthèse pharmaceutique ou de raffinage écologique",
+          sub: isEn ? "Green chemistry, local biomass valorization and drug manufacturing" : "Chimie verte, valorisation de la biomasse locale et fabrication de médicaments"
+        }
       ]
     },
     {
@@ -153,12 +297,48 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
       title: isEn ? "What career milestone do you aim for after graduation?" : "Quel titre ou fonction visez-vous 5 ans après votre diplôme ENSPD ?",
       subtitle: isEn ? "The engineering diploma from ENSPD opens the doors to the highest responsibilities." : "Choisissez la trajectoire professionnelle qui vous inspire le plus.",
       options: [
-        { key: "A", tag: "Direction Technique", icon: <Cpu size={22} className="text-[#d4af37]" />, label: "Chief Technology Officer (CTO) ou Architecte Solutions Cloud / IA", sub: "Diriger la stratégie technologique de multinationales ou de licornes technologiques" },
-        { key: "B", tag: "Directeur BTP", icon: <Building size={22} className="text-[#d4af37]" />, label: "Directeur de Projets BTP & Grandes Infrastructures", sub: "Piloter des méga-projets d'aménagement urbain, autoroutier et aéroportuaire" },
-        { key: "C", tag: "Manager Énergie", icon: <Zap size={22} className="text-[#d4af37]" />, label: "Chef de Projet Réseaux d'Énergie & Automatismes Industriels", sub: "Gouverner la production, la distribution électrique et l'industrie 4.0" },
-        { key: "D", tag: "Ingénieur en Chef", icon: <Car size={22} className="text-[#d4af37]" />, label: "Ingénieur en Chef de Conception Automobile & Robotique", sub: "Innover dans l'industrie automobile, l'aérospatiale et les engins autonomes" },
-        { key: "E", tag: "Directeur Portuaire", icon: <Anchor size={22} className="text-[#d4af37]" />, label: "Directeur des Opérations Portuaires ou d'Ingénierie Maritime", sub: "Superviser les flux maritimes internationaux et les flottes navales" },
-        { key: "F", tag: "Directeur d'Usine", icon: <Beaker size={22} className="text-[#d4af37]" />, label: "Directeur de Complexe Pétrochimique ou Pharmaceutique", sub: "Gérer des usines de transformation chimique, cosmétique et biotechnologique" }
+        {
+          key: "A",
+          tag: isEn ? "Tech Leadership" : "Direction Technique",
+          icon: <Cpu size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Chief Technology Officer (CTO) or Cloud / AI Solutions Architect" : "Chief Technology Officer (CTO) ou Architecte Solutions Cloud / IA",
+          sub: isEn ? "Lead technological strategy for global multinationals or tech unicorns" : "Diriger la stratégie technologique de multinationales ou de licornes technologiques"
+        },
+        {
+          key: "B",
+          tag: isEn ? "Civil Projects Lead" : "Directeur BTP",
+          icon: <Building size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Civil Engineering & Mega Infrastructure Project Director" : "Directeur de Projets BTP & Grandes Infrastructures",
+          sub: isEn ? "Manage mega urban planning, highway, and airport developments" : "Piloter des méga-projets d'aménagement urbain, autoroutier et aéroportuaire"
+        },
+        {
+          key: "C",
+          tag: isEn ? "Energy Executive" : "Manager Énergie",
+          icon: <Zap size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Energy Grid & Industrial Automation Project Manager" : "Chef de Projet Réseaux d'Énergie & Automatismes Industriels",
+          sub: isEn ? "Oversee power generation, electrical distribution and Industry 4.0" : "Gouverner la production, la distribution électrique et l'industrie 4.0"
+        },
+        {
+          key: "D",
+          tag: isEn ? "Chief Engineer" : "Ingénieur en Chef",
+          icon: <Car size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Chief Automotive & Robotics Design Engineer" : "Ingénieur en Chef de Conception Automobile & Robotique",
+          sub: isEn ? "Innovate in automotive systems, aerospace and autonomous robotics" : "Innover dans l'industrie automobile, l'aérospatiale et les engins autonomes"
+        },
+        {
+          key: "E",
+          tag: isEn ? "Port Operations Lead" : "Directeur Portuaire",
+          icon: <Anchor size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Port Operations Director or Maritime Engineering Lead" : "Directeur des Opérations Portuaires ou d'Ingénierie Maritime",
+          sub: isEn ? "Supervise international maritime traffic flows and naval fleets" : "Superviser les flux maritimes internationaux et les flottes navales"
+        },
+        {
+          key: "F",
+          tag: isEn ? "Plant Director" : "Directeur d'Usine",
+          icon: <Beaker size={22} className="text-[#d4af37]" />,
+          label: isEn ? "Petrochemical or Pharmaceutical Plant Managing Director" : "Directeur de Complexe Pétrochimique ou Pharmaceutique",
+          sub: isEn ? "Operate chemical, cosmetics and biotech processing manufacturing" : "Gérer des usines de transformation chimique, cosmétique et biotechnologique"
+        }
       ]
     }
   ];
@@ -329,10 +509,12 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                 <Sparkles size={28} className="animate-spin" />
               </div>
               <h3 className="font-serif font-black text-xl text-slate-900 dark:text-white">
-                Calibrage des affinités d'ingénierie...
+                {isEn ? "Calibrating engineering affinities..." : "Calibrage des affinités d'ingénierie..."}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Poly croise vos réponses avec les pondérations officielles des 10 départements de l'ENSPD.
+                {isEn
+                  ? "Poly is matching your answers against the official criteria of ENSPD's 10 departments."
+                  : "Poly croise vos réponses avec les pondérations officielles des 10 départements de l'ENSPD."}
               </p>
             </div>
 
@@ -352,7 +534,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
-                  <span>Étape {currentStep + 1} sur 5 • {currentQ.theme}</span>
+                  <span>{isEn ? `Step ${currentStep + 1} of 5 • ${currentQ.theme}` : `Étape ${currentStep + 1} sur 5 • ${currentQ.theme}`}</span>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white leading-tight">
@@ -477,11 +659,11 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
               <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
                   <Award size={14} />
-                  <span>Diagnostic Personnalisé ENSPD</span>
+                  <span>{isEn ? "Personalized ENSPD Diagnostic" : "Diagnostic Personnalisé ENSPD"}</span>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white">
-                  Vos filières d'excellence recommandées
+                  {isEn ? "Your Recommended Engineering Excellence Tracks" : "Vos filières d'excellence recommandées"}
                 </h2>
 
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
@@ -503,7 +685,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                           {track.field_code}
                         </span>
                         <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/15 text-[#b8861b] dark:text-[#d4af37] border border-amber-200 dark:border-[#d4af37]/30">
-                          {track.compatibility_score}% affinité
+                          {track.compatibility_score}% {isEn ? "match" : "affinité"}
                         </span>
                       </div>
 
@@ -517,7 +699,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
                       <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1">
                         <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                          Débouchés professionnels clés :
+                          {isEn ? "Key career opportunities:" : "Débouchés professionnels clés :"}
                         </span>
                         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                           {track.careers.slice(0, 3).join(', ')}
@@ -529,7 +711,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                       onClick={() => onAskAboutTrack(track.title)}
                       className="w-full bg-[#0a192f] hover:bg-[#071324] text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition shadow-xs group-hover:bg-[#d4af37]"
                     >
-                      <span>Explorer cette filière avec Poly</span>
+                      <span>{isEn ? "Explore this track with Poly" : "Explorer cette filière avec Poly"}</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -544,7 +726,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                 className="px-6 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold flex items-center gap-2 cursor-pointer transition shadow-2xs"
               >
                 <RotateCcw size={15} />
-                <span>Recommencer le questionnaire</span>
+                <span>{isEn ? "Restart questionnaire" : "Recommencer le questionnaire"}</span>
               </button>
             </Reveal>
           </div>

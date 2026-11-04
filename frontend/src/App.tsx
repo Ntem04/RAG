@@ -297,13 +297,15 @@ export const App: React.FC = () => {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8 animate-fade-in text-left">
             <div className="space-y-3">
               <span className="text-xs uppercase font-bold tracking-wider text-poly-gold bg-amber-50 dark:bg-poly-gold/10 px-3 py-1 rounded-md">
-                Institution Officielle
+                {isEn ? "Official Institution" : "Institution Officielle"}
               </span>
               <h1 className="text-3xl font-black text-poly-navy dark:text-white">
-                À propos de l'ENSPD
+                {isEn ? "About ENSPD" : "À propos de l'ENSPD"}
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-200 font-medium max-w-2xl">
-                L'École Nationale Supérieure Polytechnique de Douala est la grande école d'ingénieurs de référence de l'Université de Douala.
+                {isEn
+                  ? "The National Higher Polytechnic School of Douala (ENSPD) is the premier engineering school of the University of Douala."
+                  : "L'École Nationale Supérieure Polytechnique de Douala est la grande école d'ingénieurs de référence de l'Université de Douala."}
               </p>
             </div>
 
@@ -313,11 +315,20 @@ export const App: React.FC = () => {
                   <GraduationCap size={24} />
                 </div>
                 <h3 className="font-extrabold text-lg text-poly-navy dark:text-white">
-                  Direction de l'École
+                  {isEn ? "School Leadership" : "Direction de l'École"}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  L'ENSPD est dirigée par le <strong>Professeur Ruben Martin MOUANGUE</strong> (Professeur Titulaire des Universités).
-                  L'école est sous la tutelle de l'Université de Douala, dont le Recteur est le <strong>Professeur Magloire ONDOA</strong>.
+                  {isEn ? (
+                    <>
+                      ENSPD is directed by <strong>Professor Ruben Martin MOUANGUE</strong> (Full Professor of Universities).
+                      The institution is under the academic oversight of the University of Douala, led by Rector <strong>Professor Magloire ONDOA</strong>.
+                    </>
+                  ) : (
+                    <>
+                      L'ENSPD est dirigée par le <strong>Professeur Ruben Martin MOUANGUE</strong> (Professeur Titulaire des Universités).
+                      L'école est sous la tutelle de l'Université de Douala, dont le Recteur est le <strong>Professeur Magloire ONDOA</strong>.
+                    </>
+                  )}
                 </p>
               </div>
 
@@ -326,10 +337,18 @@ export const App: React.FC = () => {
                   <Building2 size={24} />
                 </div>
                 <h3 className="font-extrabold text-lg text-poly-navy dark:text-white">
-                  Création et Historique
+                  {isEn ? "Creation and History" : "Création et Historique"}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  L'école a été officiellement créée et réorganisée par les <strong>décrets présidentiels n° 2020/272 et 2020/273 du 11 mai 2020</strong> signés par le Président de la République Paul BIYA, transformant l'ancienne Faculté de Génie Industriel (FGI) en École Polytechnique.
+                  {isEn ? (
+                    <>
+                      The school was officially established and restructured by <strong>presidential decrees n° 2020/272 and 2020/273 of May 11, 2020</strong> signed by Head of State H.E. Paul BIYA, upgrading the former Faculty of Industrial Engineering (FGI) into a Polytechnic School of excellence.
+                    </>
+                  ) : (
+                    <>
+                      L'école a été officiellement créée et réorganisée par les <strong>décrets présidentiels n° 2020/272 et 2020/273 du 11 mai 2020</strong> signés par le Président de la République Paul BIYA, transformant l'ancienne Faculté de Génie Industriel (FGI) en École Polytechnique.
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -337,10 +356,12 @@ export const App: React.FC = () => {
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 space-y-3">
               <h3 className="font-extrabold text-base text-poly-navy dark:text-white flex items-center gap-2">
                 <MapPin size={18} className="text-poly-gold" />
-                <span>Localisation du Campus</span>
+                <span>{isEn ? "Campus Location" : "Localisation du Campus"}</span>
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                Le campus principal est situé à PK17 à Douala, Cameroun. Il abrite les amphithéâtres, les laboratoires technologiques, le Datacenter GIT, les bancs d'essais automobiles et les ateliers de génie civil.
+                {isEn
+                  ? "The main campus is located at PK17 in Douala, Cameroon. It houses modern lecture amphitheatres, cutting-edge engineering laboratories, the GIT Datacenter, automotive testing benches, and civil engineering workshops."
+                  : "Le campus principal est situé à PK17 à Douala, Cameroun. Il abrite les amphithéâtres, les laboratoires technologiques, le Datacenter GIT, les bancs d'essais automobiles et les ateliers de génie civil."}
               </p>
             </div>
           </div>

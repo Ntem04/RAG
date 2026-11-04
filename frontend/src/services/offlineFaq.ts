@@ -14,8 +14,8 @@ export const OFFLINE_FAQ: LocalFAQItem[] = [
     keywords: ["filiere", "filieres", "specialite", "formation", "tracks", "programs"],
     question_fr: "Quelles sont les filières proposées à l'ENSPD ?",
     question_en: "What engineering tracks are offered at ENSPD?",
-    answer_fr: "L'ENSPD forme en 5 ans des ingénieurs dans 5 filières majeures : Génie Informatique & Télécommunications, Génie Électrique & Énergie, Génie Mécanique & Productique, Génie Civil & Bâtiment, et Génie Chimique & Procédés Industriels.",
-    answer_en: "ENSPD trains engineers in 5 main tracks: Computer Science & Telecoms, Electrical & Energy, Mechanical & Manufacturing, Civil & Infrastructure, and Chemical & Industrial Processes.",
+    answer_fr: "L'ENSPD forme en 5 ans des ingénieurs d'État à travers 10 filières d'excellence (11 départements académiques) : Génie Informatique & Télécommunications (GIT), Génie Civil (GC), Génie Mécanique (GM), Génie Électrique & Systèmes Intelligents, Génie des Procédés, Génie Maritime & Portuaire, Génie Automobile, Génie Énergétique, Génie Industriel & Maintenance, et Génie Biomédical.",
+    answer_en: "ENSPD trains State Engineers in 5 years across 10 excellence tracks (11 academic departments): Computer Science & Telecoms, Civil Engineering, Mechanical Engineering, Electrical & Smart Systems, Process Engineering, Maritime & Port Engineering, Automotive Engineering, Energy Engineering, Industrial & Maintenance, and Biomedical Engineering.",
     source: "Filières ENSPD (DEMO)"
   },
   {

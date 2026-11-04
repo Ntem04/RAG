@@ -257,7 +257,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               </div>
               <div>
                 <h4 className="font-bold text-sm text-poly-navy dark:text-white">
-                  Bonjour ! 👋
+                  {isEn ? "Hello! 👋" : "Bonjour ! 👋"}
                 </h4>
                 <p className="text-xs text-slate-600 dark:text-slate-300">
                   {isEn
