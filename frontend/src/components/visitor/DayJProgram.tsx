@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   Share2
 } from 'lucide-react';
+import { Reveal } from '../common/Reveal';
 
 interface DayJProgramProps {
   language: 'fr' | 'en';
@@ -201,7 +202,7 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
           <div className="absolute inset-0 bg-gradient-to-r from-[#071526]/95 via-[#092240]/85 to-[#071526]/80 pointer-events-none" />
 
           {/* Title and Subtitle Header matching mockup */}
-          <div className="relative z-10 max-w-2xl space-y-2 text-left">
+          <Reveal direction="down" delay={40} className="relative z-10 max-w-2xl space-y-2 text-left">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-white tracking-tight drop-shadow-md">
               {isEn ? "Events" : "Événements"}
             </h1>
@@ -210,97 +211,100 @@ export const DayJProgram: React.FC<DayJProgramProps> = ({ language, onAskPoly })
                 ? "Stay informed about the latest news and important events at ENSPD."
                 : "Restez informé des actualités et événements importants de l'ENSPD."}
             </p>
-          </div>
+          </Reveal>
         </div>
 
         {/* White / Light Content Area Card Container matching mockup */}
         <div className="flex-1 bg-[#f8fafc] dark:bg-[#071324] text-slate-900 dark:text-white p-5 sm:p-8 lg:p-10 flex flex-col justify-between">
           <div className="max-w-6xl mx-auto w-full space-y-6 sm:space-y-8">
             {/* Filter Tabs Bar matching mockup */}
-            <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 shadow-2xs flex items-center overflow-x-auto gap-1">
-              {categories.map((cat) => {
-                const isActive = activeCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => {
-                      setActiveCategory(cat.id);
-                      setCurrentPage(1);
-                    }}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-[#d4af37] text-white shadow-sm'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
-                    }`}
-                  >
-                    {cat.icon}
-                    <span>{isEn ? cat.label_en : cat.label_fr}</span>
-                  </button>
-                );
-              })}
-            </div>
+            <Reveal direction="down" delay={60}>
+              <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-xl p-1.5 shadow-2xs flex items-center overflow-x-auto gap-1">
+                {categories.map((cat) => {
+                  const isActive = activeCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        setActiveCategory(cat.id);
+                        setCurrentPage(1);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-[#d4af37] text-white shadow-sm'
+                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
+                      }`}
+                    >
+                      {cat.icon}
+                      <span>{isEn ? cat.label_en : cat.label_fr}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </Reveal>
 
             {/* 2x2 Events Grid matching mockup */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-              {filteredEvents.map((evt) => (
-                <div
-                  key={evt.id}
-                  className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:border-[#d4af37]/60 transition-all flex flex-col sm:flex-row group text-left"
-                >
-                  {/* Left: Event Image with Date Badge */}
-                  <div className="sm:w-44 h-44 sm:h-auto relative overflow-hidden shrink-0">
-                    <img
-                      src={evt.image}
-                      alt={isEn ? evt.title_en : evt.title_fr}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+              {filteredEvents.map((evt, idx) => (
+                <Reveal key={evt.id} direction="up" delay={idx * 70}>
+                  <div
+                    className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:border-[#d4af37]/60 transition-all flex flex-col sm:flex-row group text-left h-full"
+                  >
+                    {/* Left: Event Image with Date Badge */}
+                    <div className="sm:w-44 h-44 sm:h-auto relative overflow-hidden shrink-0">
+                      <img
+                        src={evt.image}
+                        alt={isEn ? evt.title_en : evt.title_fr}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
 
-                    {/* Dark Navy Date Badge with Rounded Corners matching mockup */}
-                    <div className="absolute top-3 left-3 bg-[#0a192f]/95 backdrop-blur-xs text-white rounded-lg px-2.5 py-1.5 text-center shadow-lg border border-white/10 select-none">
-                      <div className="text-xl font-black leading-tight tracking-tight">
-                        {evt.day}
+                      {/* Dark Navy Date Badge with Rounded Corners matching mockup */}
+                      <div className="absolute top-3 left-3 bg-[#0a192f]/95 backdrop-blur-xs text-white rounded-lg px-2.5 py-1.5 text-center shadow-lg border border-white/10 select-none">
+                        <div className="text-xl font-black leading-tight tracking-tight">
+                          {evt.day}
+                        </div>
+                        <div className="text-[10px] font-extrabold tracking-wider uppercase text-slate-200">
+                          {evt.month}
+                        </div>
                       </div>
-                      <div className="text-[10px] font-extrabold tracking-wider uppercase text-slate-200">
-                        {evt.month}
+                    </div>
+
+                    {/* Right: Content Section */}
+                    <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-3">
+                      <div className="space-y-1.5">
+                        <h3 className="font-serif font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug group-hover:text-[#d4af37] transition-colors">
+                          {isEn ? evt.title_en : evt.title_fr}
+                        </h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed font-normal">
+                          {isEn ? evt.desc_en : evt.desc_fr}
+                        </p>
+                      </div>
+
+                      {/* Metadata Row: Clock & MapPin */}
+                      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 dark:text-slate-300 font-medium pt-1">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={13} className="text-[#d4af37] shrink-0" />
+                          <span>{evt.time}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <MapPin size={13} className="text-[#d4af37] shrink-0" />
+                          <span>{evt.location}</span>
+                        </div>
+                      </div>
+
+                      {/* Action link: Voir plus -> */}
+                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-end">
+                        <button
+                          onClick={() => setSelectedEvent(evt)}
+                          className="text-xs font-bold text-[#d4af37] hover:text-[#b89427] hover:underline flex items-center gap-1 cursor-pointer transition"
+                        >
+                          <span>{isEn ? "See more" : "Voir plus"}</span>
+                          <ArrowRight size={13} />
+                        </button>
                       </div>
                     </div>
                   </div>
-
-                  {/* Right: Content Section */}
-                  <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 space-y-3">
-                    <div className="space-y-1.5">
-                      <h3 className="font-serif font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug group-hover:text-[#d4af37] transition-colors">
-                        {isEn ? evt.title_en : evt.title_fr}
-                      </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed font-normal">
-                        {isEn ? evt.desc_en : evt.desc_fr}
-                      </p>
-                    </div>
-
-                    {/* Metadata Row: Clock & MapPin */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 dark:text-slate-300 font-medium pt-1">
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={13} className="text-[#d4af37] shrink-0" />
-                        <span>{evt.time}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <MapPin size={13} className="text-[#d4af37] shrink-0" />
-                        <span>{evt.location}</span>
-                      </div>
-                    </div>
-
-                    {/* Action link: Voir plus -> */}
-                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-end">
-                      <button
-                        onClick={() => setSelectedEvent(evt)}
-                        className="text-xs font-bold text-[#d4af37] hover:text-[#b89427] hover:underline flex items-center gap-1 cursor-pointer transition"
-                      >
-                        <span>{isEn ? "See more" : "Voir plus"}</span>
-                        <ArrowRight size={13} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                </Reveal>
               ))}
             </div>
 

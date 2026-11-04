@@ -151,8 +151,10 @@ class AnalyticsTimelineResponse(BaseModel):
 class DashboardStats(BaseModel):
     total_conversations: int
     total_messages: int
+    total_questions: int = 0
     positive_ratings: int
     negative_ratings: int
+    total_ratings: int = 0
     satisfaction_rate: float
     unanswered_count: int
     pending_callbacks_count: int

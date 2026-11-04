@@ -220,104 +220,106 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
       <div className="max-w-5xl mx-auto w-full space-y-8 relative z-10">
         {/* TOP STATUS HEADER & STEPPER */}
-        <div className="space-y-4">
-          {/* Breadcrumb Info Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
-              <span className="font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Tuteur Poly • Diagnostic d'Orientation ENSPD
-              </span>
-            </div>
-            <div className="flex items-center gap-2 font-bold text-slate-600 dark:text-slate-300">
-              <span>{Math.min(100, Math.round(progressPercent))}% complété</span>
-              <span className="text-slate-300 dark:text-slate-700">•</span>
-              <span className="text-[#b8861b] dark:text-[#d4af37]">5 départements ciblés</span>
-            </div>
-          </div>
-
-          {/* Stepper Journey */}
-          <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs">
-            <div className="flex items-center justify-between relative max-w-3xl mx-auto">
-              {questions.map((q, idx) => {
-                const isActive = currentStep === idx;
-                const isPassed = currentStep > idx;
-                return (
-                  <React.Fragment key={q.id}>
-                    <div className="flex flex-col items-center relative z-10 group">
-                      <button
-                        onClick={() => {
-                          if (isPassed) setCurrentStep(idx);
-                        }}
-                        disabled={!isPassed && !isActive}
-                        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
-                          isActive
-                            ? 'bg-[#0a192f] text-white ring-4 ring-[#d4af37]/35 shadow-md scale-105'
-                            : isPassed
-                            ? 'bg-[#d4af37] text-white hover:scale-105 shadow-xs'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700'
-                        }`}
-                      >
-                        {isPassed ? <Check size={16} /> : idx + 1}
-                      </button>
-                      <span
-                        className={`text-[10px] sm:text-xs mt-1.5 font-extrabold tracking-tight transition-colors hidden sm:block ${
-                          isActive
-                            ? 'text-slate-900 dark:text-white'
-                            : isPassed
-                            ? 'text-[#b8861b] dark:text-[#d4af37]'
-                            : 'text-slate-400 dark:text-slate-500'
-                        }`}
-                      >
-                        {q.stepLabel}
-                      </span>
-                    </div>
-
-                    {/* Connecting line */}
-                    {idx < questions.length - 1 && (
-                      <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
-                        <div
-                          className={`h-full transition-all duration-300 ${
-                            isPassed ? 'w-full bg-[#d4af37]' : 'w-0 bg-[#d4af37]'
-                          }`}
-                        />
-                      </div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-
-              {/* Connecting line to results */}
-              <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
-                <div
-                  className={`h-full transition-all duration-300 ${
-                    currentStep === 5 ? 'w-full bg-[#d4af37]' : 'w-0'
-                  }`}
-                />
-              </div>
-
-              {/* Step 6: Results Step */}
-              <div className="flex flex-col items-center relative z-10">
-                <div
-                  className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-xs sm:text-sm transition-all shadow-xs ${
-                    currentStep === 5
-                      ? 'bg-[#d4af37] text-white ring-4 ring-[#d4af37]/35 scale-105'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
-                  }`}
-                >
-                  <Award size={18} />
-                </div>
-                <span
-                  className={`text-[10px] sm:text-xs mt-1.5 font-extrabold hidden sm:block ${
-                    currentStep === 5 ? 'text-[#d4af37]' : 'text-slate-400'
-                  }`}
-                >
-                  {isEn ? "Results" : "Résultats"}
+        <Reveal direction="down" delay={40}>
+          <div className="space-y-4">
+            {/* Breadcrumb Info Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
+                <span className="font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Tuteur Poly • Diagnostic d'Orientation ENSPD
                 </span>
               </div>
+              <div className="flex items-center gap-2 font-bold text-slate-600 dark:text-slate-300">
+                <span>{Math.min(100, Math.round(progressPercent))}% complété</span>
+                <span className="text-slate-300 dark:text-slate-700">•</span>
+                <span className="text-[#b8861b] dark:text-[#d4af37]">5 départements ciblés</span>
+              </div>
+            </div>
+
+            {/* Stepper Journey */}
+            <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs">
+              <div className="flex items-center justify-between relative max-w-3xl mx-auto">
+                {questions.map((q, idx) => {
+                  const isActive = currentStep === idx;
+                  const isPassed = currentStep > idx;
+                  return (
+                    <React.Fragment key={q.id}>
+                      <div className="flex flex-col items-center relative z-10 group">
+                        <button
+                          onClick={() => {
+                            if (isPassed) setCurrentStep(idx);
+                          }}
+                          disabled={!isPassed && !isActive}
+                          className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
+                            isActive
+                              ? 'bg-[#0a192f] text-white ring-4 ring-[#d4af37]/35 shadow-md scale-105'
+                              : isPassed
+                              ? 'bg-[#d4af37] text-white hover:scale-105 shadow-xs'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700'
+                          }`}
+                        >
+                          {isPassed ? <Check size={16} /> : idx + 1}
+                        </button>
+                        <span
+                          className={`text-[10px] sm:text-xs mt-1.5 font-extrabold tracking-tight transition-colors hidden sm:block ${
+                            isActive
+                              ? 'text-slate-900 dark:text-white'
+                              : isPassed
+                              ? 'text-[#b8861b] dark:text-[#d4af37]'
+                              : 'text-slate-400 dark:text-slate-500'
+                          }`}
+                        >
+                          {q.stepLabel}
+                        </span>
+                      </div>
+
+                      {/* Connecting line */}
+                      {idx < questions.length - 1 && (
+                        <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
+                          <div
+                            className={`h-full transition-all duration-300 ${
+                              isPassed ? 'w-full bg-[#d4af37]' : 'w-0 bg-[#d4af37]'
+                            }`}
+                          />
+                        </div>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+
+                {/* Connecting line to results */}
+                <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      currentStep === 5 ? 'w-full bg-[#d4af37]' : 'w-0'
+                    }`}
+                  />
+                </div>
+
+                {/* Step 6: Results Step */}
+                <div className="flex flex-col items-center relative z-10">
+                  <div
+                    className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-xs sm:text-sm transition-all shadow-xs ${
+                      currentStep === 5
+                        ? 'bg-[#d4af37] text-white ring-4 ring-[#d4af37]/35 scale-105'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <Award size={18} />
+                  </div>
+                  <span
+                    className={`text-[10px] sm:text-xs mt-1.5 font-extrabold hidden sm:block ${
+                      currentStep === 5 ? 'text-[#d4af37]' : 'text-slate-400'
+                    }`}
+                  >
+                    {isEn ? "Results" : "Résultats"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* LOADING EVALUATION SKELETON STATE */}
         {loading && (
@@ -344,194 +346,199 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
         {/* ACTIVE QUESTION STEP (0 to 4) */}
         {!loading && currentStep < 5 && currentQ && (
-          <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8 text-left transition-all">
-            {/* Question Header */}
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
-                <span>Étape {currentStep + 1} sur 5 • {currentQ.theme}</span>
+          <Reveal direction="up" delay={60}>
+            <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8 text-left transition-all">
+              {/* Question Header */}
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+                  <span>Étape {currentStep + 1} sur 5 • {currentQ.theme}</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white leading-tight">
+                  {currentQ.title}
+                </h2>
+
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium max-w-3xl leading-relaxed">
+                  {currentQ.subtitle}
+                </p>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white leading-tight">
-                {currentQ.title}
-              </h2>
+              {/* Options Grid (Balanced 2-Column Responsive Layout) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                {currentQ.options.map((opt, index) => {
+                  const isSelected = answers[currentQ.id] === opt.key;
+                  const isLastAndOdd = index === currentQ.options.length - 1 && currentQ.options.length % 2 !== 0;
 
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium max-w-3xl leading-relaxed">
-                {currentQ.subtitle}
-              </p>
-            </div>
-
-            {/* Options Grid (Balanced 2-Column Responsive Layout) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-              {currentQ.options.map((opt, index) => {
-                const isSelected = answers[currentQ.id] === opt.key;
-                const isLastAndOdd = index === currentQ.options.length - 1 && currentQ.options.length % 2 !== 0;
-
-                return (
-                  <div
-                    key={opt.key}
-                    onClick={() => handleSelectOption(currentQ.id, opt.key)}
-                    className={`group relative p-4 sm:p-5 rounded-2xl transition-all duration-200 cursor-pointer flex items-start justify-between gap-4 select-none ${
-                      isLastAndOdd ? 'md:col-span-2' : ''
-                    } ${
-                      isSelected
-                        ? 'bg-gradient-to-br from-amber-50/70 via-white to-amber-50/30 dark:from-[#132238] dark:via-[#0c1829] dark:to-[#0f2542] border-2 border-[#d4af37] ring-2 ring-[#d4af37]/20 shadow-md -translate-y-0.5'
-                        : 'bg-white dark:bg-[#0c1829] border border-slate-200 dark:border-slate-800 hover:border-amber-400/60 dark:hover:border-amber-500/40 hover:shadow-sm hover:-translate-y-0.5'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3.5 flex-1 min-w-0">
-                      {/* Executive Letter Badge */}
-                      <div
-                        className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 transition-all ${
-                          isSelected
-                            ? 'bg-[#0a192f] text-[#d4af37] ring-2 ring-[#d4af37] shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
-                        }`}
-                      >
-                        {opt.key}
-                      </div>
-
-                      {/* Icon Squircle with Tinted Glass Effect */}
-                      <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        {opt.icon}
-                      </div>
-
-                      {/* Content & Tag */}
-                      <div className="space-y-1.5 flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white leading-snug">
-                            {opt.label}
-                          </h4>
-                          {'tag' in opt && (
-                            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/60 shrink-0">
-                              {(opt as any).tag}
-                            </span>
-                          )}
+                  return (
+                    <div
+                      key={opt.key}
+                      onClick={() => handleSelectOption(currentQ.id, opt.key)}
+                      className={`group relative p-4 sm:p-5 rounded-2xl transition-all duration-200 cursor-pointer flex items-start justify-between gap-4 select-none ${
+                        isLastAndOdd ? 'md:col-span-2' : ''
+                      } ${
+                        isSelected
+                          ? 'bg-gradient-to-br from-amber-50/70 via-white to-amber-50/30 dark:from-[#132238] dark:via-[#0c1829] dark:to-[#0f2542] border-2 border-[#d4af37] ring-2 ring-[#d4af37]/20 shadow-md -translate-y-0.5'
+                          : 'bg-white dark:bg-[#0c1829] border border-slate-200 dark:border-slate-800 hover:border-amber-400/60 dark:hover:border-amber-500/40 hover:shadow-sm hover:-translate-y-0.5'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                        {/* Executive Letter Badge */}
+                        <div
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 transition-all ${
+                            isSelected
+                              ? 'bg-[#0a192f] text-[#d4af37] ring-2 ring-[#d4af37] shadow-sm'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                          }`}
+                        >
+                          {opt.key}
                         </div>
-                        <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
-                          {opt.sub}
-                        </p>
+
+                        {/* Icon Squircle with Tinted Glass Effect */}
+                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                          {opt.icon}
+                        </div>
+
+                        {/* Content & Tag */}
+                        <div className="space-y-1.5 flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white leading-snug">
+                              {opt.label}
+                            </h4>
+                            {'tag' in opt && (
+                              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/60 shrink-0">
+                                {(opt as any).tag}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
+                            {opt.sub}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Radio Checkmark */}
+                      <div className="shrink-0 pt-1">
+                        {isSelected ? (
+                          <CheckCircle2 size={22} className="text-[#d4af37] drop-shadow-xs" />
+                        ) : (
+                          <div className="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 group-hover:border-amber-400 transition-colors" />
+                        )}
                       </div>
                     </div>
-
-                    {/* Radio Checkmark */}
-                    <div className="shrink-0 pt-1">
-                      {isSelected ? (
-                        <CheckCircle2 size={22} className="text-[#d4af37] drop-shadow-xs" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 group-hover:border-amber-400 transition-colors" />
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Bottom Navigation Dock */}
-            <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4">
-              <button
-                onClick={handleBack}
-                disabled={currentStep === 0}
-                className={`px-5 py-2.5 rounded-xl border text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer ${
-                  currentStep === 0
-                    ? 'border-slate-200 dark:border-slate-800 text-slate-300 dark:text-slate-700 cursor-not-allowed opacity-60'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 shadow-2xs'
-                }`}
-              >
-                <ArrowLeft size={16} />
-                <span>{isEn ? "Previous" : "Précédent"}</span>
-              </button>
-
-              <div className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                <span>Étape {currentStep + 1} de 5</span>
+                  );
+                })}
               </div>
 
-              <button
-                onClick={handleNext}
-                disabled={loading}
-                className={`px-7 py-3 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2.5 transition shadow-md cursor-pointer ${
-                  currentStep === 4
-                    ? 'bg-[#d4af37] hover:bg-[#c29c29] text-white ring-2 ring-[#d4af37]/30'
-                    : 'bg-[#0a192f] hover:bg-[#071324] text-white'
-                }`}
-              >
-                <span>
-                  {currentStep === 4
-                    ? (isEn ? "Generate My Diagnostic" : "Générer mes recommandations")
-                    : (isEn ? "Next step" : "Étape suivante")}
-                </span>
-                <ArrowRight size={16} />
-              </button>
+              {/* Bottom Navigation Dock */}
+              <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4">
+                <button
+                  onClick={handleBack}
+                  disabled={currentStep === 0}
+                  className={`px-5 py-2.5 rounded-xl border text-xs sm:text-sm font-bold flex items-center gap-2 transition cursor-pointer ${
+                    currentStep === 0
+                      ? 'border-slate-200 dark:border-slate-800 text-slate-300 dark:text-slate-700 cursor-not-allowed opacity-60'
+                      : 'border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 shadow-2xs'
+                  }`}
+                >
+                  <ArrowLeft size={16} />
+                  <span>{isEn ? "Previous" : "Précédent"}</span>
+                </button>
+
+                <div className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                  <span>Étape {currentStep + 1} de 5</span>
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  disabled={loading}
+                  className={`px-7 py-3 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2.5 transition shadow-md cursor-pointer ${
+                    currentStep === 4
+                      ? 'bg-[#d4af37] hover:bg-[#c29c29] text-white ring-2 ring-[#d4af37]/30'
+                      : 'bg-[#0a192f] hover:bg-[#071324] text-white'
+                  }`}
+                >
+                  <span>
+                    {currentStep === 4
+                      ? (isEn ? "Generate My Diagnostic" : "Générer mes recommandations")
+                      : (isEn ? "Next step" : "Étape suivante")}
+                  </span>
+                  <ArrowRight size={16} />
+                </button>
+              </div>
             </div>
-          </div>
+          </Reveal>
         )}
 
         {/* RESULTS SCREEN (Step 5) */}
         {!loading && currentStep === 5 && results && (
           <div className="space-y-8 animate-fade-in text-left">
-            <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
-                <Award size={14} />
-                <span>Diagnostic Personnalisé ENSPD</span>
+            <Reveal direction="down" delay={40}>
+              <div className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/10 border border-amber-200 dark:border-[#d4af37]/30 text-[#b8861b] dark:text-[#d4af37] text-xs font-bold uppercase tracking-wider">
+                  <Award size={14} />
+                  <span>Diagnostic Personnalisé ENSPD</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white">
+                  Vos filières d'excellence recommandées
+                </h2>
+
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+                  {results.summary}
+                </p>
               </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-slate-900 dark:text-white">
-                Vos filières d'excellence recommandées
-              </h2>
-
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
-                {results.summary}
-              </p>
-            </div>
+            </Reveal>
 
             {/* Recommended Tracks Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {results.recommended_tracks.map((track) => (
-                <div
-                  key={track.field_code}
-                  className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xs flex flex-col justify-between space-y-5 hover:border-[#d4af37] hover:shadow-md transition group"
-                >
-                  <div className="space-y-3.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-black px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                        {track.field_code}
-                      </span>
-                      <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/15 text-[#b8861b] dark:text-[#d4af37] border border-amber-200 dark:border-[#d4af37]/30">
-                        {track.compatibility_score}% affinité
-                      </span>
-                    </div>
-
-                    <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white leading-snug group-hover:text-[#d4af37] transition-colors">
-                      {track.title}
-                    </h3>
-
-                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
-                      {track.description}
-                    </p>
-
-                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1">
-                      <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                        Débouchés professionnels clés :
-                      </span>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                        {track.careers.slice(0, 3).join(', ')}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onAskAboutTrack(track.title)}
-                    className="w-full bg-[#0a192f] hover:bg-[#071324] text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition shadow-xs group-hover:bg-[#d4af37]"
+              {results.recommended_tracks.map((track, idx) => (
+                <Reveal key={track.field_code} direction="up" delay={idx * 80}>
+                  <div
+                    className="bg-white dark:bg-[#0c1a2e] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xs flex flex-col justify-between space-y-5 hover:border-[#d4af37] hover:shadow-md transition group h-full"
                   >
-                    <span>Explorer cette filière avec Poly</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
+                    <div className="space-y-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                          {track.field_code}
+                        </span>
+                        <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-50 dark:bg-[#d4af37]/15 text-[#b8861b] dark:text-[#d4af37] border border-amber-200 dark:border-[#d4af37]/30">
+                          {track.compatibility_score}% affinité
+                        </span>
+                      </div>
+
+                      <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white leading-snug group-hover:text-[#d4af37] transition-colors">
+                        {track.title}
+                      </h3>
+
+                      <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                        {track.description}
+                      </p>
+
+                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1">
+                        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                          Débouchés professionnels clés :
+                        </span>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                          {track.careers.slice(0, 3).join(', ')}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => onAskAboutTrack(track.title)}
+                      className="w-full bg-[#0a192f] hover:bg-[#071324] text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition shadow-xs group-hover:bg-[#d4af37]"
+                    >
+                      <span>Explorer cette filière avec Poly</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </Reveal>
               ))}
             </div>
 
             {/* Restart button */}
-            <div className="flex justify-center pt-2">
+            <Reveal direction="up" delay={250} className="flex justify-center pt-2">
               <button
                 onClick={handleReset}
                 className="px-6 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold flex items-center gap-2 cursor-pointer transition shadow-2xs"
@@ -539,7 +546,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                 <RotateCcw size={15} />
                 <span>Recommencer le questionnaire</span>
               </button>
-            </div>
+            </Reveal>
           </div>
         )}
       </div>

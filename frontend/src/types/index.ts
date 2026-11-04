@@ -68,8 +68,10 @@ export interface KnowledgeSheet {
 export interface DashboardStats {
   total_conversations: number;
   total_messages: number;
+  total_questions?: number;
   positive_ratings: number;
   negative_ratings: number;
+  total_ratings?: number;
   satisfaction_rate: number;
   unanswered_count: number;
   pending_callbacks_count: number;

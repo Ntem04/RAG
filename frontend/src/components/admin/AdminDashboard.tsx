@@ -359,7 +359,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <MessageSquare size={20} />
                     </div>
                     <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                      {stats ? stats.total_questions : '2 485'}
+                      {stats ? (stats.total_questions ?? stats.total_messages ?? 0) : 0}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
                       Questions posées
@@ -372,10 +372,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <CheckCircle2 size={20} />
                     </div>
                     <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                      {stats && stats.satisfaction_rate ? `${stats.satisfaction_rate}%` : '94%'}
+                      {stats && (stats.positive_ratings + stats.negative_ratings) > 0
+                        ? `${stats.satisfaction_rate}%`
+                        : "0%"}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                      Taux de satisfaction
+                      {stats && (stats.positive_ratings + stats.negative_ratings) > 0
+                        ? `Taux de satisfaction (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})`
+                        : "Taux de satisfaction (0 avis)"}
                     </div>
                   </div>
 
@@ -385,7 +389,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <Users size={20} />
                     </div>
                     <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                      {stats ? stats.total_conversations : '842'}
+                      {stats ? stats.total_conversations : 0}
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
                       Utilisateurs uniques
@@ -417,7 +421,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       Activité des conversations
                     </h3>
                     <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
-                      +{timelineGrowth}% sur la période
+                      {timelineGrowth >= 0 ? `+${timelineGrowth}%` : `${timelineGrowth}%`} sur la période
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">

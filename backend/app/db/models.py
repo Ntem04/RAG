@@ -87,12 +87,29 @@ class Feedback(Base):
     __tablename__ = "feedbacks"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    message_id = Column(String, ForeignKey("chat_messages.id", ondelete="CASCADE"), nullable=False, unique=True)
-    rating = Column(String(10), nullable=False) # up, down
+    message_id = Column(String, ForeignKey("chat_messages.id", ondelete="CASCADE"), nullable=True, index=True)
+    rating = Column(String(10), nullable=False, index=True) # up, down
     comment = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
 
     message = relationship("ChatMessage", back_populates="feedback")
+
+class DailyMetric(Base):
+    """
+    Table dénormalisée pour l'optimisation des requêtes analytiques et de supervision (OLAP).
+    Agrège les compteurs journaliers en temps réel pour un accès en temps constant O(1).
+    """
+    __tablename__ = "daily_metrics"
+
+    date = Column(String(10), primary_key=True, index=True) # Format YYYY-MM-DD
+    conversations_count = Column(Integer, default=0)
+    messages_count = Column(Integer, default=0)
+    questions_count = Column(Integer, default=0)
+    positive_ratings = Column(Integer, default=0)
+    negative_ratings = Column(Integer, default=0)
+    satisfaction_rate = Column(Float, default=0.0) # (pos / (pos + neg)) * 100
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 class UnansweredQuestion(Base):
     __tablename__ = "unanswered_questions"
