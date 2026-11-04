@@ -45,7 +45,7 @@ def list_callbacks(
 @router.patch("/{callback_id}/status")
 def update_callback_status(
     callback_id: str,
-    new_status: str = Query(..., pattern="^(pending|in_progress|resolved)$"),
+    new_status: str = Query(..., pattern="^(pending|in_progress|resolved|processed)$"),
     notes: Optional[str] = None,
     payload: dict = Depends(require_roles(["admin", "contributeur"])),
     db: Session = Depends(get_db)
@@ -53,6 +53,9 @@ def update_callback_status(
     cb = db.query(CallbackRequest).filter(CallbackRequest.id == callback_id).first()
     if not cb:
         raise HTTPException(status_code=404, detail="Demande introuvable")
+
+    if new_status == "processed":
+        new_status = "resolved"
 
     cb.status = new_status
     if notes is not None:

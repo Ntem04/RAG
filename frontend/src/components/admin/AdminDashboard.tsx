@@ -915,46 +915,70 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xs">
-              <table className="w-full text-xs text-left">
-                <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[11px]">
-                  <tr>
-                    <th className="p-4">Visiteur</th>
-                    <th className="p-4">Téléphone</th>
-                    <th className="p-4">Sujet</th>
-                    <th className="p-4">Statut</th>
-                    <th className="p-4 text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {callbacks.map((cb) => (
-                    <tr key={cb.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                      <td className="p-4 font-bold text-poly-navy dark:text-white">{cb.full_name}</td>
-                      <td className="p-4 font-mono font-bold text-slate-700 dark:text-slate-200">{cb.phone_number}</td>
-                      <td className="p-4 text-slate-500">{cb.topic}</td>
-                      <td className="p-4">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
-                          cb.status === 'processed'
-                            ? 'bg-emerald-50 text-emerald-700'
-                            : 'bg-amber-50 text-amber-700'
-                        }`}>
-                          {cb.status === 'processed' ? 'Traité' : 'En attente'}
-                        </span>
-                      </td>
-                      <td className="p-4 text-right">
-                        <button
-                          onClick={async () => {
-                            await api.updateCallbackStatus(token, cb.id, cb.status === 'processed' ? 'pending' : 'processed');
-                            loadData();
-                          }}
-                          className="text-[11px] font-bold text-poly-navy dark:text-poly-gold hover:underline"
-                        >
-                          {cb.status === 'processed' ? 'Marquer en attente' : 'Marquer traité'}
-                        </button>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs text-left">
+                  <thead className="bg-slate-100/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th className="p-4">Visiteur</th>
+                      <th className="p-4">Téléphone</th>
+                      <th className="p-4">Sujet</th>
+                      <th className="p-4">Statut</th>
+                      <th className="p-4 text-right">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {callbacks.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="p-8 text-center text-slate-500 dark:text-slate-400 font-medium">
+                          Aucune demande de rappel enregistrée pour le moment.
+                        </td>
+                      </tr>
+                    ) : (
+                      callbacks.map((cb) => {
+                        const visitorName = cb.visitor_name || (cb as any).full_name || "Visiteur anonyme";
+                        const phone = cb.contact_info || (cb as any).phone_number || "—";
+                        const subject = cb.interested_field || (cb as any).topic || "Orientation générale";
+                        const isProcessed = cb.status === 'resolved' || cb.status === ('processed' as any);
+
+                        return (
+                          <tr key={cb.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition">
+                            <td className="p-4 font-bold text-slate-900 dark:text-white">
+                              {visitorName}
+                            </td>
+                            <td className="p-4 font-mono font-bold text-slate-800 dark:text-slate-200">
+                              {phone}
+                            </td>
+                            <td className="p-4 text-slate-700 dark:text-slate-300 font-medium">
+                              {subject}
+                            </td>
+                            <td className="p-4">
+                              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md border ${
+                                isProcessed
+                                  ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
+                                  : 'bg-amber-50 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800'
+                              }`}>
+                                {isProcessed ? 'Traité' : 'En attente'}
+                              </span>
+                            </td>
+                            <td className="p-4 text-right">
+                              <button
+                                onClick={async () => {
+                                  const targetStatus = isProcessed ? 'pending' : 'resolved';
+                                  await api.updateCallbackStatus(token, cb.id, targetStatus);
+                                  loadData();
+                                }}
+                                className="text-xs font-bold text-poly-navy dark:text-poly-gold hover:underline cursor-pointer"
+                              >
+                                {isProcessed ? 'Marquer en attente' : 'Marquer traité'}
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}

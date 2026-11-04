@@ -105,23 +105,41 @@ export const api = {
 
   // Callbacks
   async submitCallback(payload: {
-    visitor_name: string;
-    contact_info: string;
-    consent_given: boolean;
+    visitor_name?: string;
+    contact_info?: string;
+    full_name?: string;
+    phone_number?: string;
+    consent_given?: boolean;
+    parental_consent_given?: boolean;
     parental_consent_confirmed?: boolean;
     interested_field?: string;
+    topic?: string;
     profile?: string;
+    comment?: string;
+    preferred_time_slot?: string;
   }): Promise<CallbackRequest> {
+    const formattedPayload = {
+      visitor_name: payload.visitor_name || payload.full_name || 'Visiteur anonyme',
+      contact_info: payload.contact_info || payload.phone_number || '',
+      consent_given: payload.consent_given ?? payload.parental_consent_given ?? true,
+      parental_consent_confirmed: payload.parental_consent_confirmed ?? payload.parental_consent_given ?? false,
+      interested_field: payload.interested_field || payload.topic || 'Orientation générale',
+      profile: payload.profile || 'eleve'
+    };
     const res = await fetch(`${API_BASE}/callbacks/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(formattedPayload)
     });
     const data = await safeParseJson(res);
     if (!res.ok) {
       throw new Error(data.detail || 'Erreur lors de la soumission');
     }
     return data;
+  },
+
+  async createCallback(payload: any): Promise<CallbackRequest> {
+    return this.submitCallback(payload);
   },
 
   // Orientation
