@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { KnowledgeSheet, DashboardStats, CallbackRequest, UnansweredQuestion, TimelineDataPoint } from '../../types';
+import { SkeletonStatCard, SkeletonTableRow, Skeleton } from '../common/Skeleton';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -343,57 +344,68 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             {/* 4 Metric Cards from Mockup 07 */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Card 1: Questions */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-poly-navy dark:text-blue-300 flex items-center justify-center">
-                  <MessageSquare size={20} />
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  {stats ? stats.total_questions : '2 485'}
-                </div>
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                  Questions posées
-                </div>
-              </div>
+              {loading ? (
+                <>
+                  <SkeletonStatCard />
+                  <SkeletonStatCard />
+                  <SkeletonStatCard />
+                  <SkeletonStatCard />
+                </>
+              ) : (
+                <>
+                  {/* Card 1: Questions */}
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-poly-navy dark:text-blue-300 flex items-center justify-center">
+                      <MessageSquare size={20} />
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
+                      {stats ? stats.total_questions : '2 485'}
+                    </div>
+                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Questions posées
+                    </div>
+                  </div>
 
-              {/* Card 2: Taux de satisfaction */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-                  <CheckCircle2 size={20} />
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  {stats && stats.satisfaction_rate ? `${stats.satisfaction_rate}%` : '94%'}
-                </div>
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                  Taux de satisfaction
-                </div>
-              </div>
+                  {/* Card 2: Taux de satisfaction */}
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                      <CheckCircle2 size={20} />
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
+                      {stats && stats.satisfaction_rate ? `${stats.satisfaction_rate}%` : '94%'}
+                    </div>
+                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Taux de satisfaction
+                    </div>
+                  </div>
 
-              {/* Card 3: Utilisateurs */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-                  <Users size={20} />
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  {stats ? stats.total_conversations : '842'}
-                </div>
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                  Utilisateurs uniques
-                </div>
-              </div>
+                  {/* Card 3: Utilisateurs */}
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                      <Users size={20} />
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
+                      {stats ? stats.total_conversations : '842'}
+                    </div>
+                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Utilisateurs uniques
+                    </div>
+                  </div>
 
-              {/* Card 4: Événements / Fiches */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-poly-gold/10 text-poly-goldDark dark:text-poly-gold flex items-center justify-center">
-                  <Calendar size={20} />
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
-                  {sheets.length}
-                </div>
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                  Fiches officielles validées
-                </div>
-              </div>
+                  {/* Card 4: Événements / Fiches */}
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-2xs space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-poly-gold/10 text-poly-goldDark dark:text-poly-gold flex items-center justify-center">
+                      <Calendar size={20} />
+                    </div>
+                    <div className="text-2xl sm:text-3xl font-black text-poly-navy dark:text-white">
+                      {sheets.length}
+                    </div>
+                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      Fiches officielles validées
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Real Interactive Chart with Recharts matching Mockup 07 with multi-month periods */}
@@ -589,60 +601,70 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {filteredSheets.map((sheet) => (
-                      <tr key={sheet.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td className="p-4">
-                          <div className="font-bold text-poly-navy dark:text-slate-100">{sheet.title}</div>
-                          <div className="text-[10px] text-slate-400 font-mono mt-0.5">{sheet.code} • {sheet.official_source}</div>
-                        </td>
-                        <td className="p-4">
-                          <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[10px] font-semibold">
-                            {sheet.category}
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1 ${
-                            sheet.status === 'validated'
-                              ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800'
-                              : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
-                          }`}>
-                            <span className="w-1.5 h-1.5 rounded-xs bg-current" />
-                            {sheet.status === 'validated' ? 'Validé' : 'En révision'}
-                          </span>
-                        </td>
-                        <td className="p-4 text-right">
-                          <div className="flex items-center justify-end gap-1.5">
-                            {role === 'admin' && sheet.status !== 'validated' && (
-                              <button
-                                onClick={() => handleValidateSheet(sheet.id)}
-                                className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition"
-                                title="Valider la fiche"
-                              >
-                                <Check size={14} />
-                              </button>
-                            )}
-                            {(role === 'admin' || role === 'contributeur') && (
-                              <button
-                                onClick={() => handleOpenEdit(sheet)}
-                                className="p-1.5 rounded-lg text-slate-500 hover:text-poly-navy dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-                                title="Modifier"
-                              >
-                                <Edit3 size={14} />
-                              </button>
-                            )}
-                            {role === 'admin' && (
-                              <button
-                                onClick={() => handleDeleteSheet(sheet.id)}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                title="Supprimer"
-                              >
-                                <Trash2 size={14} />
-                              </button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                    {loading ? (
+                      <>
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                      </>
+                    ) : (
+                      filteredSheets.map((sheet) => (
+                        <tr key={sheet.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
+                          <td className="p-4">
+                            <div className="font-bold text-poly-navy dark:text-slate-100">{sheet.title}</div>
+                            <div className="text-[10px] text-slate-400 font-mono mt-0.5">{sheet.code} • {sheet.official_source}</div>
+                          </td>
+                          <td className="p-4">
+                            <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[10px] font-semibold">
+                              {sheet.category}
+                            </span>
+                          </td>
+                          <td className="p-4">
+                            <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1 ${
+                              sheet.status === 'validated'
+                                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800'
+                                : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
+                            }`}>
+                              <span className="w-1.5 h-1.5 rounded-xs bg-current" />
+                              {sheet.status === 'validated' ? 'Validé' : 'En révision'}
+                            </span>
+                          </td>
+                          <td className="p-4 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              {role === 'admin' && sheet.status !== 'validated' && (
+                                <button
+                                  onClick={() => handleValidateSheet(sheet.id)}
+                                  className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition"
+                                  title="Valider la fiche"
+                                >
+                                  <Check size={14} />
+                                </button>
+                              )}
+                              {(role === 'admin' || role === 'contributeur') && (
+                                <button
+                                  onClick={() => handleOpenEdit(sheet)}
+                                  className="p-1.5 rounded-lg text-slate-500 hover:text-poly-navy dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                                  title="Modifier"
+                                >
+                                  <Edit3 size={14} />
+                                </button>
+                              )}
+                              {role === 'admin' && (
+                                <button
+                                  onClick={() => handleDeleteSheet(sheet.id)}
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
+                                  title="Supprimer"
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -714,7 +736,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {filteredUnanswered.length === 0 ? (
+                    {loading ? (
+                      <>
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                        <SkeletonTableRow />
+                      </>
+                    ) : filteredUnanswered.length === 0 ? (
                       <tr>
                         <td colSpan={5} className="p-8 text-center text-slate-400">
                           Aucune question sans réponse enregistrée.
