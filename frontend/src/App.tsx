@@ -12,12 +12,61 @@ import { ChatMessage } from './types';
 import { api } from './services/api';
 import { Building2, GraduationCap, ShieldCheck, MapPin, CheckCircle2 } from 'lucide-react';
 
+type TabType = 'home' | 'chat' | 'orientation' | 'jour_j' | 'apropos' | 'admin';
+
+const getInitialTab = (): TabType => {
+  if (typeof window === 'undefined') return 'home';
+  const hash = window.location.hash.replace('#', '').toLowerCase();
+  const validTabs: TabType[] = ['home', 'chat', 'orientation', 'jour_j', 'apropos', 'admin'];
+  if (hash === 'events') return 'jour_j';
+  if (validTabs.includes(hash as TabType)) {
+    return hash as TabType;
+  }
+  const saved = localStorage.getItem('poly_current_tab');
+  if (saved && validTabs.includes(saved as TabType)) {
+    return saved as TabType;
+  }
+  return 'home';
+};
+
 export const App: React.FC = () => {
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
+  const [language, setLanguage] = useState<'fr' | 'en'>(() => {
+    const saved = localStorage.getItem('poly_language');
+    return saved === 'en' ? 'en' : 'fr';
+  });
   const [profile, setProfile] = useState<string>('eleve');
-  const [currentTab, setCurrentTab] = useState<'home' | 'chat' | 'orientation' | 'jour_j' | 'apropos' | 'admin'>('home');
+  const [currentTab, setCurrentTab] = useState<TabType>(getInitialTab);
   const [isKiosk, setIsKiosk] = useState(false);
   const [kioskCountdown, setKioskCountdown] = useState(90);
+
+  // Sync tab with URL hash and localStorage
+  useEffect(() => {
+    localStorage.setItem('poly_current_tab', currentTab);
+    const targetHash = currentTab === 'jour_j' ? 'events' : currentTab;
+    if (window.location.hash.replace('#', '') !== targetHash) {
+      window.history.replaceState(null, '', `#${targetHash}`);
+    }
+  }, [currentTab]);
+
+  // Support browser Back / Forward buttons
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const validTabs: TabType[] = ['home', 'chat', 'orientation', 'jour_j', 'apropos', 'admin'];
+      if (hash === 'events') {
+        setCurrentTab('jour_j');
+      } else if (validTabs.includes(hash as TabType)) {
+        setCurrentTab(hash as TabType);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Sync language with localStorage
+  useEffect(() => {
+    localStorage.setItem('poly_language', language);
+  }, [language]);
 
   // Dark / Light Mode State
   const [isDark, setIsDark] = useState<boolean>(() => {
@@ -42,10 +91,16 @@ export const App: React.FC = () => {
   const [isCallbackOpen, setIsCallbackOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // Admin Auth
-  const [authToken, setAuthToken] = useState<string | null>(null);
-  const [authRole, setAuthRole] = useState<string>('lecteur');
-  const [authUsername, setAuthUsername] = useState<string>('');
+  // Admin Auth with Session Persistence across reloads
+  const [authToken, setAuthToken] = useState<string | null>(() => {
+    return sessionStorage.getItem('poly_admin_token') || null;
+  });
+  const [authRole, setAuthRole] = useState<string>(() => {
+    return sessionStorage.getItem('poly_admin_role') || 'lecteur';
+  });
+  const [authUsername, setAuthUsername] = useState<string>(() => {
+    return sessionStorage.getItem('poly_admin_user') || '';
+  });
 
   // Chat State
   const [sessionId, setSessionId] = useState<string>(() => `poly-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`);
@@ -300,6 +355,11 @@ export const App: React.FC = () => {
               username={authUsername}
               onLogout={() => {
                 setAuthToken(null);
+                setAuthRole('lecteur');
+                setAuthUsername('');
+                sessionStorage.removeItem('poly_admin_token');
+                sessionStorage.removeItem('poly_admin_role');
+                sessionStorage.removeItem('poly_admin_user');
                 setCurrentTab('home');
               }}
               language={language}
@@ -310,6 +370,9 @@ export const App: React.FC = () => {
                 setAuthToken(token);
                 setAuthRole(role);
                 setAuthUsername(user);
+                sessionStorage.setItem('poly_admin_token', token);
+                sessionStorage.setItem('poly_admin_role', role);
+                sessionStorage.setItem('poly_admin_user', user);
               }}
               onCancel={() => setCurrentTab('home')}
               language={language}
