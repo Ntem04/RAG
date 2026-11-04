@@ -407,13 +407,18 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           })}
 
           {loading && (
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div className="w-9 h-9 rounded-xl bg-poly-navy text-poly-gold flex items-center justify-center shrink-0 border border-poly-gold/30">
+            <div className="flex items-start gap-3 sm:gap-4 animate-fade-in">
+              <div className="w-9 h-9 rounded-xl bg-poly-navy text-poly-gold flex items-center justify-center shrink-0 border border-poly-gold/30 shadow-xs">
                 <GraduationCap size={18} />
               </div>
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-2xl rounded-tl-xs shadow-xs flex items-center space-x-2 text-slate-500 dark:text-slate-400 text-xs">
-                <Loader2 size={15} className="animate-spin text-poly-gold" />
-                <span>
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-3 rounded-2xl rounded-tl-xs shadow-xs flex items-center space-x-3 text-slate-600 dark:text-slate-300 text-xs">
+                {/* 3D Rotating Orbit 3-Dots */}
+                <div className="three-dots-3d shrink-0">
+                  <div className="dot-3d" />
+                  <div className="dot-3d" />
+                  <div className="dot-3d" />
+                </div>
+                <span className="font-medium">
                   {isEn
                     ? "Poly is retrieving verified official ENSPD data..."
                     : "Poly consulte les fiches officielles de l'ENSPD..."}

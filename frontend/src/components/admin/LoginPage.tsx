@@ -55,90 +55,88 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#071526] text-white relative overflow-hidden select-none">
-      {/* Back button (floating subtle top-left) */}
+    <div className="h-screen max-h-screen w-full flex flex-col lg:flex-row bg-[#071526] text-white relative overflow-hidden select-none">
+      {/* Back button (floating top-left) */}
       <button
         onClick={onCancel}
-        className="absolute top-5 left-5 z-30 inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-900 px-3 py-1.5 rounded-md backdrop-blur-xs transition cursor-pointer"
+        className="absolute top-4 left-4 z-30 inline-flex items-center gap-2 text-xs font-bold text-slate-200 hover:text-white bg-slate-900/80 hover:bg-slate-900 px-3 py-1.5 rounded-md backdrop-blur-xs transition border border-slate-700/60 cursor-pointer shadow-sm"
       >
         <ArrowLeft size={14} />
         <span>{isEn ? "Back to Portal" : "Retour au portail"}</span>
       </button>
 
-      {/* LEFT SECTION: Dark navy polygonal background with Login Form */}
-      <div className="w-full lg:w-[42%] flex flex-col justify-between p-6 sm:p-10 lg:p-14 z-20 relative bg-gradient-to-br from-[#061222] via-[#091b33] to-[#0a1e38] border-r border-[#1a2d48]/40 shadow-2xl">
-        {/* Decorative subtle polygon lines */}
+      {/* LEFT SECTION: Vertically centered form container with NO scrollbar */}
+      <div className="w-full lg:w-[42%] xl:w-[38%] h-full flex flex-col justify-center items-center px-5 sm:px-8 lg:px-10 py-4 z-20 relative bg-gradient-to-br from-[#061222] via-[#091b33] to-[#0a1e38] border-r border-[#1a2d48]/40 shadow-2xl overflow-hidden">
+        {/* Decorative background glow */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-[#d4af37]/20 to-transparent blur-3xl transform rotate-45" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600/10 blur-2xl" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-b from-[#d4af37]/20 to-transparent blur-3xl transform rotate-45" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 blur-2xl" />
         </div>
 
-        {/* Top: Logo & Title Header */}
-        <div className="relative z-10 pt-8 sm:pt-4">
-          <div className="flex items-center gap-3.5 mb-8">
-            <img
-              src="/images/enspd-logo.webp"
-              alt="ENSPD Logo"
-              className="w-14 h-14 object-contain shrink-0 drop-shadow-md"
-            />
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-2xl tracking-tight text-white font-sans">
-                  ENSPD
-                </span>
-                <span className="font-serif font-black text-2xl tracking-wider text-[#d4af37] uppercase">
-                  POLY
-                </span>
+        {/* Centered Form Wrapper */}
+        <div className="w-full max-w-sm sm:max-w-md my-auto flex flex-col justify-center space-y-3 sm:space-y-4 relative z-10">
+          {/* Logo & Headline */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-3">
+              <img
+                src="/images/enspd-logo.webp"
+                alt="ENSPD Logo"
+                className="w-11 h-11 object-contain shrink-0 drop-shadow-md"
+              />
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-xl tracking-tight text-white font-sans">
+                    ENSPD
+                  </span>
+                  <span className="font-serif font-black text-xl tracking-wider text-[#d4af37] uppercase">
+                    POLY
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-300 leading-tight">
+                  École Nationale Supérieure Polytechnique de Douala
+                </p>
               </div>
-              <p className="text-[11px] text-slate-300 leading-tight">
-                École Nationale Supérieure Polytechnique de Douala
+            </div>
+
+            <div className="pt-2">
+              <div className="text-lg sm:text-xl font-extrabold text-white tracking-tight leading-none">
+                Bienvenue sur <span className="font-serif font-black text-[#d4af37] text-2xl sm:text-3xl ml-1">POLY</span>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-300 pt-1 font-normal leading-relaxed">
+                Votre assistant intelligent pour une orientation réussie à l'ENSPD.
               </p>
             </div>
           </div>
 
-          <div className="space-y-1 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Bienvenue sur
-            </h1>
-            <div className="text-4xl sm:text-5xl font-serif font-black text-[#d4af37] tracking-wide">
-              POLY
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 pt-2 font-normal max-w-sm leading-relaxed">
-              Votre assistant intelligent pour une orientation réussie à l'ENSPD.
-            </p>
-          </div>
-        </div>
-
-        {/* Center: White Login Card matching mockup exactly */}
-        <div className="relative z-10 my-4">
-          <div className="bg-white rounded-2xl p-6 sm:p-7 text-slate-900 shadow-2xl space-y-4 max-w-md w-full">
+          {/* White Card with Explicit Crisp Dark Text */}
+          <div className="bg-white rounded-2xl p-5 sm:p-6 text-slate-900 shadow-2xl space-y-3.5 w-full border border-slate-100">
             {/* Header inside card */}
-            <div className="flex items-center gap-3 pb-1 border-b border-slate-100">
-              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
-                <User size={20} />
+            <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+              <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+                <User size={18} />
               </div>
               <div>
-                <h2 className="text-base font-extrabold text-slate-900 leading-snug">
+                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
                   Connexion à votre espace
                 </h2>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-500 font-medium">
                   Accédez à votre compte pour continuer
                 </p>
               </div>
             </div>
 
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600 flex items-center gap-2">
-                <AlertCircle size={15} className="shrink-0" />
+              <div className="p-2.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700 flex items-center gap-2 font-medium">
+                <AlertCircle size={14} className="shrink-0 text-red-600" />
                 <span>{error}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-3.5">
+            <form onSubmit={handleSubmit} className="space-y-3">
               {/* Identifiant */}
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <User size={16} />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                  <User size={15} />
                 </div>
                 <input
                   type="text"
@@ -146,14 +144,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Identifiant ou Matricule"
-                  className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent transition font-medium"
+                  className="w-full bg-[#f8fafc] border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent transition font-semibold"
                 />
               </div>
 
               {/* Mot de passe */}
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <Lock size={16} />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                  <Lock size={15} />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -161,20 +159,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Mot de passe"
-                  className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg pl-10 pr-10 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent transition font-medium"
+                  className="w-full bg-[#f8fafc] border border-slate-300 rounded-lg pl-9 pr-9 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent transition font-semibold"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
 
               {/* Se souvenir de moi & Mot de passe oublié */}
-              <div className="flex items-center justify-between text-xs pt-0.5">
-                <label className="flex items-center gap-2 cursor-pointer text-slate-600">
+              <div className="flex items-center justify-between text-[11px] sm:text-xs pt-0.5">
+                <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 font-medium">
                   <input
                     type="checkbox"
                     checked={rememberMe}
@@ -189,7 +187,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                     e.preventDefault();
                     alert("Pour réinitialiser votre mot de passe, contactez la direction du Datacenter ENSPD.");
                   }}
-                  className="text-[#d4af37] hover:underline font-semibold"
+                  className="text-[#b8861b] hover:text-[#94680e] hover:underline font-bold"
                 >
                   Mot de passe oublié ?
                 </a>
@@ -199,17 +197,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#d4af37] hover:bg-[#c49f2b] active:bg-[#b08d20] text-white font-extrabold text-xs sm:text-sm py-3 rounded-lg transition shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                className="w-full bg-[#d4af37] hover:bg-[#c49f2b] active:bg-[#b08d20] text-white font-extrabold text-xs sm:text-sm py-2.5 rounded-lg transition shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 <span>{loading ? "Vérification en cours..." : "Se connecter"}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={15} />
               </button>
             </form>
 
             {/* Ou divider */}
-            <div className="relative flex items-center justify-center pt-1 pb-1">
+            <div className="relative flex items-center justify-center py-0.5">
               <div className="border-t border-slate-200 w-full" />
-              <span className="bg-white px-3 text-[11px] text-slate-400 uppercase font-semibold">
+              <span className="bg-white px-2.5 text-[10px] text-slate-500 uppercase font-bold tracking-wider">
                 Ou
               </span>
               <div className="border-t border-slate-200 w-full" />
@@ -219,9 +217,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             <button
               type="button"
               onClick={handleGoogleMock}
-              className="w-full bg-[#0a192f] hover:bg-[#071324] text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-lg flex items-center justify-center gap-3 border border-slate-700 transition cursor-pointer shadow-xs"
+              className="w-full bg-[#0a192f] hover:bg-[#071324] text-white font-bold text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2.5 border border-slate-700 transition cursor-pointer shadow-2xs"
             >
-              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -242,73 +240,73 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               <span>Se connecter avec Google</span>
             </button>
           </div>
-        </div>
 
-        {/* Footnote: Connexion sécurisée */}
-        <div className="relative z-10 pt-4 flex items-center justify-center gap-2 text-[11px] text-slate-300">
-          <ShieldCheck size={14} className="text-[#d4af37]" />
-          <span>Connexion sécurisée • Données protégées</span>
+          {/* Footnote: Connexion sécurisée */}
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-300 font-medium">
+            <ShieldCheck size={13} className="text-[#d4af37]" />
+            <span>Connexion sécurisée • Données protégées</span>
+          </div>
         </div>
       </div>
 
-      {/* RIGHT SECTION: Campus courtyard photograph with motto & badges */}
-      <div className="hidden lg:block lg:w-[58%] relative overflow-hidden">
+      {/* RIGHT SECTION: Campus courtyard photograph */}
+      <div className="hidden lg:block lg:w-[58%] xl:w-[62%] h-full relative overflow-hidden">
         {/* Campus Courtyard Photograph */}
         <img
           src="/images/campus-courtyard-hq.webp"
           alt="Campus ENSPD Douala Courtyard"
-          className="w-full h-full object-cover object-center transform scale-105"
+          className="w-full h-full object-cover object-center transform scale-102"
         />
 
         {/* Gradient overlays for contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/60 pointer-events-none" />
 
-        {/* Diagonal angled gold accent line at left edge */}
-        <div className="absolute top-0 left-0 bottom-0 w-2 bg-gradient-to-b from-[#d4af37] via-[#d4af37]/60 to-transparent pointer-events-none" />
+        {/* Gold accent line at left edge */}
+        <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-gradient-to-b from-[#d4af37] via-[#d4af37]/60 to-transparent pointer-events-none" />
 
         {/* Top Right Motto */}
-        <div className="absolute top-10 right-10 text-right z-10">
-          <div className="font-serif italic font-bold text-2xl xl:text-3xl text-white tracking-wider drop-shadow-lg">
+        <div className="absolute top-8 right-8 text-right z-10">
+          <div className="font-serif italic font-bold text-xl xl:text-2xl text-white tracking-wider drop-shadow-lg">
             Former • Innover • Réussir
           </div>
-          <div className="mt-2 h-0.5 w-48 bg-gradient-to-l from-[#d4af37] to-transparent ml-auto" />
+          <div className="mt-1.5 h-0.5 w-40 bg-gradient-to-l from-[#d4af37] to-transparent ml-auto" />
         </div>
 
         {/* Bottom Area: 3 Gold Feature Badges + Pin Location + Gold Corner Polygon */}
-        <div className="absolute bottom-8 left-10 right-10 z-10 space-y-6">
+        <div className="absolute bottom-6 left-8 right-8 z-10 space-y-4">
           {/* 3 Badges in row */}
-          <div className="flex items-center justify-around bg-black/40 backdrop-blur-md border border-white/10 rounded-xl py-3.5 px-4 shadow-xl">
-            <div className="flex items-center gap-3 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
-                <GraduationCap size={20} />
+          <div className="flex items-center justify-around bg-black/45 backdrop-blur-md border border-white/15 rounded-xl py-2.5 px-3 shadow-xl">
+            <div className="flex items-center gap-2.5 text-center sm:text-left">
+              <div className="w-8 h-8 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
+                <GraduationCap size={16} />
               </div>
               <div>
-                <div className="text-xs font-extrabold text-white">Orientation</div>
-                <div className="text-[11px] text-slate-300">personnalisée</div>
+                <div className="text-[11px] font-extrabold text-white">Orientation</div>
+                <div className="text-[10px] text-slate-300">personnalisée</div>
               </div>
             </div>
 
-            <div className="h-8 w-px bg-white/20" />
+            <div className="h-6 w-px bg-white/20" />
 
-            <div className="flex items-center gap-3 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
-                <BookOpen size={20} />
+            <div className="flex items-center gap-2.5 text-center sm:text-left">
+              <div className="w-8 h-8 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
+                <BookOpen size={16} />
               </div>
               <div>
-                <div className="text-xs font-extrabold text-white">Informations</div>
-                <div className="text-[11px] text-slate-300">fiables</div>
+                <div className="text-[11px] font-extrabold text-white">Informations</div>
+                <div className="text-[10px] text-slate-300">fiables</div>
               </div>
             </div>
 
-            <div className="h-8 w-px bg-white/20" />
+            <div className="h-6 w-px bg-white/20" />
 
-            <div className="flex items-center gap-3 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
-                <Headphones size={20} />
+            <div className="flex items-center gap-2.5 text-center sm:text-left">
+              <div className="w-8 h-8 rounded-lg bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] shrink-0">
+                <Headphones size={16} />
               </div>
               <div>
-                <div className="text-xs font-extrabold text-white">Assistance</div>
-                <div className="text-[11px] text-slate-300">24h/24</div>
+                <div className="text-[11px] font-extrabold text-white">Assistance</div>
+                <div className="text-[10px] text-slate-300">24h/24</div>
               </div>
             </div>
           </div>
@@ -316,16 +314,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           {/* Bottom Row: Gold Line + Location Pin */}
           <div className="flex items-center justify-between text-xs text-white">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#d4af37]/60 to-[#d4af37] mr-4" />
-            <div className="flex items-center gap-1.5 font-bold shrink-0">
-              <MapPin size={15} className="text-[#d4af37]" />
+            <div className="flex items-center gap-1.5 font-bold shrink-0 text-[11px]">
+              <MapPin size={13} className="text-[#d4af37]" />
               <span>ENSPD – Douala, Cameroun</span>
             </div>
           </div>
         </div>
 
-        {/* Bottom Right Gold Geometric Triangle Polygon (Mockup feature) */}
+        {/* Bottom Right Gold Geometric Triangle Polygon */}
         <div
-          className="absolute bottom-0 right-0 w-32 h-32 bg-[#d4af37] pointer-events-none z-20 shadow-2xl"
+          className="absolute bottom-0 right-0 w-28 h-28 bg-[#d4af37] pointer-events-none z-20 shadow-2xl"
           style={{
             clipPath: 'polygon(100% 0, 0 100%, 100% 100%)'
           }}

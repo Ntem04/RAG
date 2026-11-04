@@ -66,25 +66,25 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     <div className="space-y-10 pb-16 animate-fade-in">
       {/* 01. Accueil - Hero Section (Matching Mockup 01. Accueil) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
-        <div className="bg-gradient-to-r from-poly-deepNavy via-poly-navy to-[#13426e] text-white rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xl border border-white/10 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="bg-white dark:bg-[#0a192f] text-slate-900 dark:text-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-lg border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
           {/* Subtle geometric lines in background */}
           <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]" />
 
           {/* Left Text Column */}
           <Reveal direction="right" delay={50} className="lg:max-w-xl space-y-4 z-10 text-left">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-poly-gold bg-poly-gold/15 px-3 py-1 rounded-md border border-poly-gold/30">
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#d4af37] bg-amber-50 dark:bg-[#d4af37]/15 px-3 py-1 rounded-md border border-amber-200 dark:border-[#d4af37]/30">
               <Sparkles size={13} />
               {isEn ? "ENSPD Douala • Orientation Guide" : "ENSPD Douala • Tuteur d'Orientation"}
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
               {isEn ? "Welcome to ENSPD" : "Bienvenue à l'ENSPD"}
-              <span className="block text-poly-gold mt-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold">
+              <span className="block text-[#d4af37] mt-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold">
                 {isEn ? "Your future begins here" : "Votre avenir commence ici"}
               </span>
             </h1>
 
-            <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-lg">
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-lg font-medium">
               {isEn
                 ? "Discover our 10 engineering tracks, receive personalized academic counseling, and prepare your entrance into the leading engineering school."
                 : "Découvrez nos 10 filières d'ingénieurs, obtenez des conseils personnalisés et préparez votre orientation vers la grande école d'ingénieurs de référence."}
@@ -93,7 +93,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => onStartChat()}
-                className="bg-poly-gold hover:bg-poly-goldHover text-white font-bold text-sm px-6 py-3 rounded-md transition shadow-md flex items-center gap-2 group cursor-pointer"
+                className="bg-[#d4af37] hover:bg-[#c29c29] text-white font-bold text-sm px-6 py-3 rounded-xl transition shadow-md flex items-center gap-2 group cursor-pointer"
               >
                 <span>{isEn ? "Start Consultation" : "Commencer"}</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -101,9 +101,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
 
               <button
                 onClick={onOpenOrientation}
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold text-sm px-5 py-3 rounded-md transition border border-white/20 flex items-center gap-2 cursor-pointer"
+                className="bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold text-sm px-5 py-3 rounded-xl transition border border-slate-300 dark:border-white/20 flex items-center gap-2 cursor-pointer"
               >
-                <Compass size={16} className="text-poly-gold" />
+                <Compass size={16} className="text-[#d4af37]" />
                 <span>{isEn ? "Orientation Test" : "Test d'orientation"}</span>
               </button>
             </div>
@@ -111,15 +111,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
 
           {/* Right Campus Courtyard Image Column */}
           <Reveal direction="left" delay={150} className="lg:max-w-lg w-full z-10">
-            <div className="relative rounded-xl overflow-hidden shadow-2xl border-2 border-white/15 group">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-slate-200 dark:border-white/15 group">
               <img
-                src="/images/campus-courtyard.webp"
+                src="/images/campus-courtyard-hq.webp"
                 alt="Campus ENSPD Ndogbong Douala"
                 className="w-full h-64 sm:h-72 lg:h-80 object-cover group-hover:scale-102 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                <span className="text-xs text-white/90 font-medium flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-poly-gold" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
+                <span className="text-xs text-white font-medium flex items-center gap-1.5">
+                  <CheckCircle2 size={13} className="text-[#d4af37]" />
                   Campus ENSPD • Ndogbong, Douala
                 </span>
               </div>
