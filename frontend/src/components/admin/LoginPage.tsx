@@ -55,7 +55,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <div className="h-screen max-h-screen w-full flex flex-col lg:flex-row bg-[#071526] text-white relative overflow-hidden select-none">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row bg-[#071526] text-white relative overflow-y-auto lg:overflow-hidden select-none">
       {/* Back button (floating top-left) */}
       <button
         onClick={onCancel}
@@ -65,8 +65,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         <span>{isEn ? "Back to Portal" : "Retour au portail"}</span>
       </button>
 
-      {/* LEFT SECTION: Vertically centered form container with NO scrollbar */}
-      <div className="w-full lg:w-[42%] xl:w-[38%] h-full flex flex-col justify-center items-center px-5 sm:px-8 lg:px-10 py-4 z-20 relative bg-gradient-to-br from-[#061222] via-[#091b33] to-[#0a1e38] border-r border-[#1a2d48]/40 shadow-2xl overflow-hidden">
+      {/* LEFT SECTION: Vertically centered form container with clean responsive padding */}
+      <div className="w-full lg:w-[42%] xl:w-[38%] min-h-screen lg:min-h-0 lg:h-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-10 py-12 lg:py-4 z-20 relative bg-gradient-to-br from-[#061222] via-[#091b33] to-[#0a1e38] border-r border-[#1a2d48]/40 shadow-2xl overflow-y-auto lg:overflow-hidden no-scrollbar">
         {/* Decorative background glow */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-b from-[#d4af37]/20 to-transparent blur-3xl transform rotate-45" />
@@ -164,7 +164,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                  style={{ border: 'none', outline: 'none', background: 'transparent', boxShadow: 'none' }}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer border-0 outline-none focus:outline-none focus:ring-0 bg-transparent ring-0 shadow-none appearance-none"
+                  aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                 >
                   {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>

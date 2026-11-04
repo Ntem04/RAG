@@ -261,7 +261,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                         {isPassed ? <Check size={16} /> : idx + 1}
                       </button>
                       <span
-                        className={`text-[11px] sm:text-xs mt-2 font-extrabold tracking-tight transition-colors ${
+                        className={`text-[10px] sm:text-xs mt-1.5 font-extrabold tracking-tight transition-colors hidden sm:block ${
                           isActive
                             ? 'text-slate-900 dark:text-white'
                             : isPassed
@@ -275,7 +275,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
 
                     {/* Connecting line */}
                     {idx < questions.length - 1 && (
-                      <div className="flex-1 h-0.5 mx-2 -mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
+                      <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
                         <div
                           className={`h-full transition-all duration-300 ${
                             isPassed ? 'w-full bg-[#d4af37]' : 'w-0 bg-[#d4af37]'
@@ -288,7 +288,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
               })}
 
               {/* Connecting line to results */}
-              <div className="flex-1 h-0.5 mx-2 -mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
+              <div className="flex-1 h-0.5 mx-1 sm:mx-2 -mt-0 sm:-mt-5 bg-slate-200 dark:bg-slate-800 relative overflow-hidden">
                 <div
                   className={`h-full transition-all duration-300 ${
                     currentStep === 5 ? 'w-full bg-[#d4af37]' : 'w-0'
@@ -308,7 +308,7 @@ export const OrientationWizard: React.FC<OrientationWizardProps> = ({
                   <Award size={18} />
                 </div>
                 <span
-                  className={`text-[11px] sm:text-xs mt-2 font-extrabold ${
+                  className={`text-[10px] sm:text-xs mt-1.5 font-extrabold hidden sm:block ${
                     currentStep === 5 ? 'text-[#d4af37]' : 'text-slate-400'
                   }`}
                 >

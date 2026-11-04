@@ -285,7 +285,7 @@ export const App: React.FC = () => {
                 <span>Localisation du Campus</span>
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                Le campus principal est situé au quartier Ndogbong à Douala, Cameroun. Il abrite les amphithéâtres, les laboratoires technologiques, le Datacenter GIT, les bancs d'essais automobiles et les ateliers de génie civil.
+                Le campus principal est situé à PK17 à Douala, Cameroun. Il abrite les amphithéâtres, les laboratoires technologiques, le Datacenter GIT, les bancs d'essais automobiles et les ateliers de génie civil.
               </p>
             </div>
           </div>

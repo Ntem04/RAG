@@ -309,7 +309,7 @@ OFFICIAL_ENSPD_SHEETS = [
             "Le Directeur de l'École Nationale Supérieure Polytechnique de Douala (ENSPD) est le Professeur Ruben Martin MOUANGUE (nom du directeur : Pr Ruben Martin MOUANGUE, Professeur Titulaire des Universités). "
             "L'ENSPD est un établissement public de référence d'enseignement supérieur et de formation des ingénieurs, rattaché à l'Université de Douala, dont le Recteur est le Professeur Magloire ONDOA. "
             "L'école a été officiellement créée et réorganisée par les décrets présidentiels n° 2020/272 et 2020/273 du 11 mai 2020 signés par le Président de la République Paul BIYA, "
-            "transformant l'ancienne Faculté de Génie Industriel (FGI) en École Polytechnique d'excellence. Le campus principal de l'ENSPD est situé au quartier Ndogbong à Douala."
+            "transformant l'ancienne Faculté de Génie Industriel (FGI) en École Polytechnique d'excellence. Le campus principal de l'ENSPD est situé à PK17 à Douala."
         )
     },
     {
@@ -324,7 +324,7 @@ OFFICIAL_ENSPD_SHEETS = [
             "The Director of the National Higher Polytechnic School of Douala (ENSPD) is Professor Ruben Martin MOUANGUE (official name of director: Prof. Ruben Martin MOUANGUE, Full Professor). "
             "ENSPD is a leading public higher engineering education school under the authority of the University of Douala, whose Rector is Professor Magloire ONDOA. "
             "The school was officially established by Presidential Decrees No. 2020/272 and 2020/273 of May 11, 2020, signed by President Paul BIYA, "
-            "transformant the former Faculty of Industrial Engineering (FGI) into ENSPD. The main campus is located in Douala, Ndogbong."
+            "transformant the former Faculty of Industrial Engineering (FGI) into ENSPD. The main campus is located in Douala, PK17."
         )
     },
     {
@@ -336,7 +336,7 @@ OFFICIAL_ENSPD_SHEETS = [
         "sensitivity": "normal",
         "status": "validated",
         "content": (
-            "Le programme des Journées d'Orientation se déroule sur le campus de l'ENSPD (Ndogbong, Douala). "
+            "Le programme des Journées d'Orientation se déroule sur le campus de l'ENSPD (PK17, Douala). "
             "08h30 : Accueil des visiteurs et enregistrement au stand central (Bâtiment A). "
             "09h30 - 11h00 : Conférence plénière en amphithéâtre 300 'Devenir Ingénieur Polytechnique au 21e siècle'. "
             "11h30 - 15h30 : Visites guidées des laboratoires scientifiques (Robots GAM, FabLab, Datacenter GIT et Bancs de génie civil). "
@@ -348,11 +348,11 @@ OFFICIAL_ENSPD_SHEETS = [
         "title": "Plan du campus et localisation des stands ENSPD",
         "category": "jour_j",
         "language": "fr",
-        "official_source": "Comité d'Organisation - Plan Campus Ndogbong",
+        "official_source": "Comité d'Organisation - Plan Campus PK17",
         "sensitivity": "normal",
         "status": "validated",
         "content": (
-            "Le campus de l'ENSPD est situé au quartier Ndogbong à Douala. "
+            "Le campus de l'ENSPD est situé à PK17 à Douala. "
             "Le Stand d'Accueil Général et Borne Poly se trouvent à l'entrée principale (Bâtiment A). "
             "Le Stand Génie Informatique & IA est au 1er étage du Bâtiment Numérique. "
             "Les Stands Génie Mécanique, Automobile (GAM) et Génie Civil sont installés devant les Ateliers Technologiques (Cour Sud). "
