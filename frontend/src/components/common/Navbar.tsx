@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Home,
   MessageSquare,
   Compass,
   Calendar,
@@ -33,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isEn = language === "en";
 
   const navItems = [
-    { id: "home" as const, label: isEn ? "Home" : "Accueil", icon: null },
+    { id: "home" as const, label: isEn ? "Home" : "Accueil", icon: <Home size={15} /> },
     { id: "chat" as const, label: "Chat", icon: <MessageSquare size={15} /> },
     { id: "orientation" as const, label: "Orientation", icon: <Compass size={15} /> },
     { id: "jour_j" as const, label: isEn ? "Events" : "Événements", icon: <Calendar size={15} /> },
