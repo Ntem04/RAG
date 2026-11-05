@@ -4,7 +4,7 @@
 
 ---
 
-## 🏛️ Présentation
+## Présentation
 **Poly** est le tuteur d'orientation officiel de l'ENSPD. Conçu pour guider les élèves de terminale, bacheliers, parents et partenaires, il fournit des informations certifiées et vérifiées à partir des fiches académiques officielles de l'école (procédure d'inscription, filières, épreuves, gouvernance).
 
 - **Institution** : École Nationale Supérieure Polytechnique de Douala (Université de Douala)
@@ -14,8 +14,8 @@
 
 ---
 
-## 🚀 Fonctionnalités Clés
-1. **Accueil immersif & Statistiques** : Présentation des 10 départements d'ingénieurs, chiffres clés (+50 filières, +5 000 étudiants).
+## Fonctionnalités Clés
+1. **Accueil immersif & Statistiques** : Présentation des 10 départements d'ingénieurs, chiffres clés (10 filières d'ingénieurs, 11 départements académiques, +5 000 étudiants).
 2. **Chat haute précision** : Tuteur conversationnel avec citation de fiches certifiées, tolérance aux fautes de frappe et 0 invention.
 3. **Module d'Orientation en 3 étapes** : Test d'affinité académique et recommandations personnalisées avec photos du campus.
 4. **Journées d'Orientation 2026** : Programme complet horaire des conférences et plan d'accès aux stands & laboratoires.
@@ -29,7 +29,7 @@
 
 ---
 
-## 🛠️ Stack Technique
+## Stack Technique
 - **Frontend** : React 18, TypeScript, Vite, Tailwind CSS (PWA ultra-légère < 300 Ko, images WebP).
 - **Backend** : FastAPI (Python 3.14), Pydantic v2, SQLite / PostgreSQL.
 - **RAG & NLP** : Moteur hybride vectoriel + mots-clés avec tolérance aux fautes de frappe.
@@ -37,7 +37,7 @@
 
 ---
 
-## 📦 Installation & Démarrage
+## Installation & Démarrage
 
 ### 1. Backend
 ```bash
@@ -64,5 +64,5 @@ python -m pytest backend/tests -v
 
 ---
 
-## 📄 Licence & Droits
+## Licence & Droits
 Projet développé pour l'École Nationale Supérieure Polytechnique de Douala (ENSPD) – Tous droits réservés.

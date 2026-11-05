@@ -26,6 +26,12 @@ import {
 import { ChatMessage } from '../../types';
 import { SkeletonChat } from '../common/Skeleton';
 
+// Helper to strip any emojis from text
+const cleanEmojiText = (text: string): string => {
+  if (!text) return '';
+  return text.replace(/[\u{10000}-\u{10ffff}\u{2600}-\u{27bf}\u{2300}-\u{23ff}\u{2b50}-\u{2b55}]/gu, '').replace(/\s{2,}/g, ' ');
+};
+
 interface ChatWindowProps {
   messages: ChatMessage[];
   onSendMessage: (text: string) => void;
@@ -257,7 +263,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               </div>
               <div>
                 <h4 className="font-bold text-sm text-poly-navy dark:text-white">
-                  {isEn ? "Hello! 👋" : "Bonjour ! 👋"}
+                  {isEn ? "Hello !" : "Bonjour !"}
                 </h4>
                 <p className="text-xs text-slate-600 dark:text-slate-300">
                   {isEn
@@ -317,7 +323,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                         : 'bg-poly-navy text-white rounded-tr-xs'
                     }`}
                   >
-                    <p className="whitespace-pre-wrap">{msg.content}</p>
+                    <p className="whitespace-pre-wrap">{cleanEmojiText(msg.content)}</p>
                   </div>
 
                   {/* Sources Accordion */}

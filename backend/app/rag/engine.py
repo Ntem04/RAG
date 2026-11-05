@@ -20,6 +20,18 @@ STOPWORDS = {
     "could", "would", "please"
 }
 
+EMOJI_PATTERN = re.compile(
+    r"[\U00010000-\U0010ffff]|[\u2600-\u27bf]|[\u2300-\u23ff]|[\u2b50-\u2b55]"
+)
+
+def remove_emojis(text: str) -> str:
+    """Supprime tous les émojis et pictogrammes des réponses de l'IA pour garantir un ton strictement académique."""
+    if not text:
+        return ""
+    cleaned = EMOJI_PATTERN.sub("", text)
+    return re.sub(r" {2,}", " ", cleaned).strip()
+
+
 class RAGEngine:
     def __init__(self):
         self.embedding_service = embedding_service
@@ -362,6 +374,9 @@ class RAGEngine:
                 f"{context_chunks[0]['content']}\n\n(Information certifiée issue de la fiche : {context_chunks[0]['title']})"
             )
 
+        # Sanitize all assistant output to guarantee zero emojis
+        generated_text = remove_emojis(generated_text)
+
         # Step 8: Restitution
         sources_list = [
             SheetSource(
@@ -373,7 +388,7 @@ class RAGEngine:
             )
             for s in sources_data
         ]
-        suggestions = self.generate_suggestions(intent, language)
+        suggestions = [remove_emojis(s) for s in self.generate_suggestions(intent, language)]
         latency = int((time.time() - start_time) * 1000)
 
         # Step 9: Logging

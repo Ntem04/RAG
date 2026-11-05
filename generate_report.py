@@ -31,7 +31,7 @@ def add_callout(doc, text, title="NOTE TECHNIQUE"):
     p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.space_after = Pt(2)
     p.paragraph_format.line_spacing = 1.15
-    run_t = p.add_run(f"📌 {title} : ")
+    run_t = p.add_run(f"{title} : ")
     run_t.bold = True
     run_t.font.name = "Calibri"
     run_t.font.size = Pt(10)
@@ -194,7 +194,7 @@ def build_report():
         ("Partie 3 : Le Moteur RAG & Résilience", "Indexation certifiée, recherche sémantique floue, garde-fous anti-hallucination, mode offline"),
         ("Partie 4 : Module d'Orientation Décisionnel", "Scoring multicritère en 5 étapes, matrice de pondération, diagnostic d'affinité"),
         ("Partie 5 : Justification des Choix Techniques", "FastAPI vs Django, React/Vite, UI/UX ScrollReveal & 3D Loader, routage persistant"),
-        ("Partie 6 : Supervision & Espace Administration", "Analytics réels temps réel, satisfaction par pouces 👍/👎, diagramme Recharts"),
+        ("Partie 6 : Supervision & Espace Administration", "Analytics réels temps réel, satisfaction par avis positifs/négatifs, diagramme Recharts"),
         ("Partie 7 : Tests, Qualité & Déploiement", "Validation 13/13 tests Pytest, double versioning GitHub, perspectives d'évolution")
     ]
 

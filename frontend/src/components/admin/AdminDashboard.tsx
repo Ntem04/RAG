@@ -378,7 +378,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </div>
                     <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
                       {stats && (stats.positive_ratings + stats.negative_ratings) > 0
-                        ? (isEn ? `Satisfaction rate (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})` : `Taux de satisfaction (${stats.positive_ratings} 👍 / ${stats.positive_ratings + stats.negative_ratings})`)
+                        ? (isEn ? `Satisfaction rate (${stats.positive_ratings} positive / ${stats.positive_ratings + stats.negative_ratings})` : `Taux de satisfaction (${stats.positive_ratings} avis positifs / ${stats.positive_ratings + stats.negative_ratings})`)
                         : (isEn ? "Satisfaction rate (0 reviews)" : "Taux de satisfaction (0 avis)")}
                     </div>
                   </div>
@@ -900,8 +900,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               {emergencyActive && (
                 <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300 font-medium">
                   {isEn
-                    ? "⚠️ Maintenance mode active: chat conversations are paused and direct visitors to the ENSPD welcome desk."
-                    : "⚠️ Mode maintenance actif : les conversations sont suspendues et renvoient vers le stand d'accueil de l'ENSPD."}
+                    ? "Maintenance mode active: chat conversations are paused and direct visitors to the ENSPD welcome desk."
+                    : "Mode maintenance actif : les conversations sont suspendues et renvoient vers le stand d'accueil de l'ENSPD."}
                 </div>
               )}
             </div>
