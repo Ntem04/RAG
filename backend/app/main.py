@@ -5,7 +5,7 @@ from app.core.config import settings
 from app.db.database import engine, Base, SessionLocal
 from app.db.seed_data import seed_database
 from app.api.v1 import (
-    auth, chat, orientation, sheets, callbacks, analytics, emergency, settings as settings_api
+    auth, chat, orientation, sheets, callbacks, analytics, emergency, settings as settings_api, enspd_site
 )
 
 @asynccontextmanager
@@ -55,6 +55,7 @@ app.include_router(callbacks.router, prefix=settings.API_V1_STR)
 app.include_router(analytics.router, prefix=settings.API_V1_STR)
 app.include_router(emergency.router, prefix=settings.API_V1_STR)
 app.include_router(settings_api.router, prefix=settings.API_V1_STR)
+app.include_router(enspd_site.router, prefix=settings.API_V1_STR)
 
 if __name__ == "__main__":
     import uvicorn

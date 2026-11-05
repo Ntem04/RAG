@@ -299,6 +299,52 @@ export const api = {
       headers: { Authorization: `Bearer ${token}` }
     });
     return safeParseJson(res);
+  },
+
+  // Live ENSPD Official Site (enspd-udo.cm) Integration
+  async getEnspdSiteStatus(): Promise<{
+    online: boolean;
+    site_reachable: boolean;
+    site_url: string;
+    checked_at: string;
+    message: string;
+  }> {
+    try {
+      const res = await fetch(`${API_BASE}/enspd-site/status`);
+      return safeParseJson(res);
+    } catch {
+      return {
+        online: false,
+        site_reachable: false,
+        site_url: 'https://enspd-udo.cm',
+        checked_at: new Date().toISOString(),
+        message: 'Mode hors-ligne local'
+      };
+    }
+  },
+
+  async liveSearchEnspdSite(query: string, language: string = 'fr'): Promise<any> {
+    const res = await fetch(`${API_BASE}/enspd-site/live-search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, language })
+    });
+    return safeParseJson(res);
+  },
+
+  async syncEnspdSite(token: string): Promise<{
+    status: string;
+    synced_sheets_count: number;
+    pages_synced: string[];
+    timestamp: string;
+  }> {
+    const res = await fetch(`${API_BASE}/enspd-site/sync`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await safeParseJson(res);
+    if (!res.ok) throw new Error(data.detail || 'Erreur lors de la synchronisation avec le site ENSPD');
+    return data;
   }
 };
 

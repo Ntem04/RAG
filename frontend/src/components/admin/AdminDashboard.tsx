@@ -21,7 +21,10 @@ import {
   ChevronRight,
   Filter,
   Check,
-  RotateCcw
+  RotateCcw,
+  Globe,
+  RefreshCw,
+  Wifi
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { KnowledgeSheet, DashboardStats, CallbackRequest, UnansweredQuestion, TimelineDataPoint } from '../../types';
@@ -88,6 +91,32 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     official_source: '',
     sensitivity: 'normal'
   });
+
+  const [syncingWeb, setSyncingWeb] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string | null>(null);
+
+  const handleSyncWeb = async () => {
+    setSyncingWeb(true);
+    setSyncMessage(null);
+    try {
+      const res = await api.syncEnspdSite(token);
+      setSyncMessage(
+        isEn
+          ? `Successfully synchronized ${res.synced_sheets_count} pages from enspd-udo.cm!`
+          : `Synchronisation réussie : ${res.synced_sheets_count} fiches mises à jour depuis enspd-udo.cm !`
+      );
+      await loadData();
+    } catch (err: any) {
+      setSyncMessage(
+        isEn
+          ? `Live sync error: ${err.message}`
+          : `Erreur de synchronisation web : ${err.message}`
+      );
+    } finally {
+      setSyncingWeb(false);
+      setTimeout(() => setSyncMessage(null), 5000);
+    }
+  };
 
   const loadData = async () => {
     setLoading(true);
@@ -559,28 +588,49 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </p>
               </div>
 
-              {(role === 'admin' || role === 'contributeur') && (
-                <button
-                  onClick={() => {
-                    setEditingSheet(null);
-                    setSheetFormData({
-                      code: `FICHE-${Date.now().toString().slice(-4)}`,
-                      title: '',
-                      category: 'filiere',
-                      language: 'fr',
-                      content: '',
-                      official_source: 'Direction ENSPD - enspd-udo.cm',
-                      sensitivity: 'normal'
-                    });
-                    setIsCreatingSheet(true);
-                  }}
-                  className="bg-poly-navy hover:bg-poly-deepNavy text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
-                >
-                  <Plus size={16} className="text-poly-gold" />
-                  <span>{isEn ? "Add sheet" : "Ajouter un article"}</span>
-                </button>
-              )}
+              <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                {(role === 'admin' || role === 'contributeur') && (
+                  <button
+                    onClick={handleSyncWeb}
+                    disabled={syncingWeb}
+                    title={isEn ? "Fetch and synchronize official data from enspd-udo.cm" : "Récupérer et synchroniser les informations officielles depuis enspd-udo.cm"}
+                    className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm px-3.5 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <RefreshCw size={14} className={syncingWeb ? "animate-spin" : ""} />
+                    <span>{syncingWeb ? (isEn ? "Syncing..." : "Sync en cours...") : (isEn ? "Sync enspd-udo.cm" : "Sync Site ENSPD")}</span>
+                  </button>
+                )}
+
+                {(role === 'admin' || role === 'contributeur') && (
+                  <button
+                    onClick={() => {
+                      setEditingSheet(null);
+                      setSheetFormData({
+                        code: `FICHE-${Date.now().toString().slice(-4)}`,
+                        title: '',
+                        category: 'filiere',
+                        language: 'fr',
+                        content: '',
+                        official_source: 'Direction ENSPD - enspd-udo.cm',
+                        sensitivity: 'normal'
+                      });
+                      setIsCreatingSheet(true);
+                    }}
+                    className="bg-poly-navy hover:bg-poly-deepNavy text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
+                  >
+                    <Plus size={16} className="text-poly-gold" />
+                    <span>{isEn ? "Add sheet" : "Ajouter un article"}</span>
+                  </button>
+                )}
+              </div>
             </div>
+
+            {syncMessage && (
+              <div className="p-3 bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-800 rounded-xl text-xs text-emerald-800 dark:text-emerald-200 font-semibold flex items-center gap-2">
+                <Globe size={15} className="text-emerald-600 shrink-0" />
+                <span>{syncMessage}</span>
+              </div>
+            )}
 
             {/* Search Input from Mockup 08 */}
             <div className="relative">

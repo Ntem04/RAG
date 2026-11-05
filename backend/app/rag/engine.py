@@ -8,6 +8,7 @@ from app.db.models import KnowledgeSheet, ChatMessage, Conversation, UnansweredQ
 from app.rag.embeddings import embedding_service
 from app.rag.llm_provider import get_llm_provider
 from app.schemas.schemas import ChatResponse, SheetSource
+from app.services.enspd_web_fetcher import enspd_web_fetcher
 
 STOPWORDS = {
     "la", "le", "les", "de", "des", "du", "un", "une", "est", "sont", "et", "en",
@@ -301,8 +302,30 @@ class RAGEngine:
         search_results = self.hybrid_search(db, cleaned_msg, language, intent)
         top_score = search_results[0][1] if search_results else 0.0
 
-        # Step 5: Relevance Threshold Check
-        if top_score < settings.SIMILARITY_THRESHOLD or not search_results:
+        # Step 5: Live Web Enrichment on enspd-udo.cm if online & relevant
+        web_chunks = []
+        is_asking_web = any(w in cleaned_msg.lower() for w in ["site", "site web", "enspd-udo.cm", "en ligne", "actualité", "actualite", "dernière", "derniere"])
+        
+        # If score is below threshold or explicitly asking about live site, query enspd-udo.cm
+        if (top_score < settings.SIMILARITY_THRESHOLD or not search_results or is_asking_web) and enspd_web_fetcher.is_online():
+            try:
+                live_pages = enspd_web_fetcher.search_site(cleaned_msg, max_results=2)
+                for lp in live_pages:
+                    web_chunks.append({
+                        "code": lp["code"],
+                        "title": lp["title"],
+                        "category": "site_officiel",
+                        "official_source": lp["official_source"],
+                        "sensitivity": "normal",
+                        "validated_at": "Temps Réel (Site Web)",
+                        "language": language,
+                        "content": lp["content"]
+                    })
+            except Exception:
+                web_chunks = []
+
+        # If still no results locally and no results from live website
+        if (top_score < settings.SIMILARITY_THRESHOLD or not search_results) and not web_chunks:
             uncertainty_text = (
                 "Bonjour ! Je ne dispose pas d'une fiche officielle validée par l'ENSPD pour répondre précisément à cette question, "
                 "et ma règle d'or m'interdit d'inventer des informations non confirmées. "
@@ -347,7 +370,12 @@ class RAGEngine:
 
         # Step 6: Generation
         context_chunks = []
-        for sheet, score in search_results:
+        if web_chunks:
+            context_chunks.extend(web_chunks)
+            if top_score < settings.SIMILARITY_THRESHOLD:
+                top_score = 0.88  # Boosted relevance score for verified live web content
+
+        for sheet, score in search_results[:2]:
             context_chunks.append({
                 "code": sheet.code,
                 "title": sheet.title,

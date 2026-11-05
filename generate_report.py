@@ -83,69 +83,258 @@ def build_report():
     c_darkslate = RGBColor(30, 41, 59)
 
     # =========================================================================
-    # PAGE DE GARDE
+    # PAGE DE GARDE OFFICIELLE ENSPD (Modèle Certifié Polytech Douala)
     # =========================================================================
-    title_p = doc.add_paragraph()
-    title_p.paragraph_format.space_before = Pt(40)
-    title_p.paragraph_format.space_after = Pt(4)
-    run_inst = title_p.add_run("RÉPUBLIQUE DU CAMEROUN\nPaix – Travail – Patrie\nUNIVERSITÉ DE DOUALA")
-    run_inst.font.name = "Calibri"
-    run_inst.font.size = Pt(11)
-    run_inst.bold = True
-    run_inst.font.color.rgb = c_slate
-    title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-    sub_inst = doc.add_paragraph()
-    sub_inst.paragraph_format.space_after = Pt(40)
-    run_sub = sub_inst.add_run("ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE DOUALA (ENSPD)\nCampus de PK17, Douala")
-    run_sub.font.name = "Calibri"
-    run_sub.font.size = Pt(12)
-    run_sub.bold = True
-    run_sub.font.color.rgb = c_navy
-    sub_inst.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # 1. Header 3 Colonnes : Ministère & Université de Douala (Bilingue) avec Sceau central
+    tbl_hdr = doc.add_table(rows=1, cols=3)
+    tbl_hdr.alignment = WD_TABLE_ALIGNMENT.CENTER
+    c_left, c_mid, c_right = tbl_hdr.rows[0].cells
+    c_left.width = Inches(2.6)
+    c_mid.width = Inches(1.4)
+    c_right.width = Inches(2.6)
 
-    # Main Project Title Box
-    tbl_title = doc.add_table(rows=1, cols=1)
-    tbl_title.alignment = WD_TABLE_ALIGNMENT.CENTER
-    cell_t = tbl_title.cell(0, 0)
-    set_cell_background(cell_t, "0A192F")
-    set_cell_margins(cell_t, top=260, bottom=260, left=260, right=260)
-    
-    tp = cell_t.paragraphs[0]
-    tp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r1 = tp.add_run("RAPPORT D'ARCHITECTURE TECHNIQUE\nET DOSSIER DE CONCEPTION\n\n")
-    r1.font.name = "Calibri"
-    r1.font.size = Pt(19)
-    r1.bold = True
-    r1.font.color.rgb = RGBColor(255, 255, 255)
-    
-    r2 = tp.add_run("PROJET POLY\nPlateforme Intelligente d'Orientation Académique\net Moteur RAG Haute Précision")
-    r2.font.name = "Calibri"
-    r2.font.size = Pt(14)
-    r2.bold = True
-    r2.font.color.rgb = c_gold
+    p_hl = c_left.paragraphs[0]
+    p_hl.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_hl.paragraph_format.line_spacing = 1.05
+    r_hl = p_hl.add_run("RÉPUBLIQUE DU CAMEROUN\nPaix – Travail – Patrie\n-------\nMINISTÈRE DE L'ENSEIGNEMENT SUPÉRIEUR\n-------\nUNIVERSITÉ DE DOUALA")
+    r_hl.font.name = "Times New Roman"
+    r_hl.font.size = Pt(8.5)
+    r_hl.bold = True
+    r_hl.font.color.rgb = c_navy
 
-    # Metadata underneath
-    meta_p = doc.add_paragraph()
-    meta_p.paragraph_format.space_before = Pt(60)
-    meta_p.paragraph_format.space_after = Pt(20)
-    meta_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    
-    r_auth = meta_p.add_run("Auteur / Développeur Principal :\n")
-    r_auth.font.name = "Calibri"
-    r_auth.font.size = Pt(11)
-    r_auth.font.color.rgb = c_slate
-    
-    r_name = meta_p.add_run("NTEM Dilane (SysWatch237 / Ntem04)\n")
-    r_name.font.name = "Calibri"
-    r_name.font.size = Pt(13)
-    r_name.bold = True
-    r_name.font.color.rgb = c_navy
-    
-    r_ctx = meta_p.add_run("Cadre : Journées d'Orientation de l'ENSPD & TP Programmation Web Dynamique\nDépôt GitHub : https://github.com/Ntem04/RAG\nAnnée Académique 2026 – Version 2.0 Finale")
-    r_ctx.font.name = "Calibri"
-    r_ctx.font.size = Pt(10.5)
-    r_ctx.font.color.rgb = c_slate
+    p_hm = c_mid.paragraphs[0]
+    p_hm.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    seal_path = os.path.join("frontend", "public", "images", "univ-douala-seal.png")
+    if os.path.exists(seal_path):
+        p_hm.add_run().add_picture(seal_path, width=Inches(0.95))
+
+    p_hr = c_right.paragraphs[0]
+    p_hr.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_hr.paragraph_format.line_spacing = 1.05
+    r_hr = p_hr.add_run("REPUBLIC OF CAMEROON\nPeace – Work – Fatherland\n-------\nMINISTRY OF HIGHER EDUCATION\n-------\nUNIVERSITY OF DOUALA")
+    r_hr.font.name = "Times New Roman"
+    r_hr.font.size = Pt(8.5)
+    r_hr.bold = True
+    r_hr.font.color.rgb = c_navy
+
+    # Séparateur subtil
+    p_sep = doc.add_paragraph()
+    p_sep.paragraph_format.space_before = Pt(4)
+    p_sep.paragraph_format.space_after = Pt(4)
+
+    # 2. Bloc Logo ENSPD (gauche) & Boîte ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE DOUALA (droite)
+    tbl_enspd = doc.add_table(rows=1, cols=2)
+    tbl_enspd.alignment = WD_TABLE_ALIGNMENT.CENTER
+    c_logo, c_box = tbl_enspd.rows[0].cells
+    c_logo.width = Inches(1.8)
+    c_box.width = Inches(4.8)
+
+    p_l = c_logo.paragraphs[0]
+    p_l.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    logo_path = os.path.join("frontend", "public", "images", "enspd-logo.png")
+    if os.path.exists(logo_path):
+        p_l.add_run().add_picture(logo_path, width=Inches(1.2))
+
+    set_cell_background(c_box, "E2E8F0")
+    set_cell_margins(c_box, top=90, bottom=90, left=140, right=140)
+    p_b = c_box.paragraphs[0]
+    p_b.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_b.paragraph_format.line_spacing = 1.15
+
+    r_eb = p_b.add_run("ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE DOUALA\n")
+    r_eb.font.name = "Times New Roman"
+    r_eb.font.size = Pt(10.5)
+    r_eb.bold = True
+    r_eb.font.color.rgb = c_navy
+
+    r_eb2 = p_b.add_run("BP : 2701 DOUALA\nTÉL : (237) 697 542 240\n")
+    r_eb2.font.name = "Times New Roman"
+    r_eb2.font.size = Pt(8.5)
+    r_eb2.bold = True
+
+    r_eb3 = p_b.add_run("Division des Affaires Académiques, de la Recherche et de la Coopération")
+    r_eb3.font.name = "Times New Roman"
+    r_eb3.font.size = Pt(8)
+    r_eb3.italic = True
+
+    # 3. Encadré Titre Diplôme / Cadre Académique
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    tbl_dip = doc.add_table(rows=1, cols=1)
+    tbl_dip.alignment = WD_TABLE_ALIGNMENT.CENTER
+    c_dip = tbl_dip.rows[0].cells[0]
+    set_cell_background(c_dip, "F8FAFC")
+    set_cell_margins(c_dip, top=120, bottom=120, left=180, right=180)
+    tcPr = c_dip._tc.get_or_add_tcPr()
+    borders = parse_xml(f'<w:tcBorders {nsdecls("w")}><w:top w:val="double" w:sz="12" w:space="0" w:color="0A192F"/><w:left w:val="double" w:sz="12" w:space="0" w:color="0A192F"/><w:bottom w:val="double" w:sz="12" w:space="0" w:color="0A192F"/><w:right w:val="double" w:sz="12" w:space="0" w:color="0A192F"/></w:tcBorders>')
+    tcPr.append(borders)
+
+    p_dip = c_dip.paragraphs[0]
+    p_dip.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_dip = p_dip.add_run("Projet de Programmation Web Dynamique / Rapport de Conception & Architecture Logicielle\n")
+    r_dip.font.name = "Times New Roman"
+    r_dip.font.size = Pt(10)
+    r_dip.bold = True
+    r_dip.font.color.rgb = c_navy
+
+    r_dip2 = p_dip.add_run("En vue de l'obtention du Diplôme d'Ingénieur à l'École Nationale Supérieure Polytechnique de Douala (ENSPD) de l'Université de Douala")
+    r_dip2.font.name = "Times New Roman"
+    r_dip2.font.size = Pt(9)
+    r_dip2.italic = True
+    r_dip2.font.color.rgb = c_slate
+
+    # 4. Filière & Option
+    p_fil = doc.add_paragraph()
+    p_fil.paragraph_format.space_before = Pt(6)
+    p_fil.paragraph_format.space_after = Pt(3)
+    p_fil.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_f1 = p_fil.add_run("Filière : ")
+    r_f1.bold = True
+    r_f1.underline = True
+    r_f1.font.name = "Times New Roman"
+    r_f1.font.size = Pt(10.5)
+    r_f2 = p_fil.add_run("Génie Informatique et Télécommunications (GIT)   |   ")
+    r_f2.bold = True
+    r_f2.font.name = "Times New Roman"
+    r_f2.font.size = Pt(10.5)
+
+    r_o1 = p_fil.add_run("Option : ")
+    r_o1.bold = True
+    r_o1.underline = True
+    r_o1.font.name = "Times New Roman"
+    r_o1.font.size = Pt(10.5)
+    r_o2 = p_fil.add_run("Génie Logiciel")
+    r_o2.bold = True
+    r_o2.font.name = "Times New Roman"
+    r_o2.font.size = Pt(10.5)
+
+    # 5. Thème du Projet
+    tbl_theme = doc.add_table(rows=1, cols=1)
+    tbl_theme.alignment = WD_TABLE_ALIGNMENT.CENTER
+    c_th = tbl_theme.rows[0].cells[0]
+    set_cell_background(c_th, "0A192F")
+    set_cell_margins(c_th, top=130, bottom=130, left=160, right=160)
+    p_th = c_th.paragraphs[0]
+    p_th.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_th1 = p_th.add_run("THÈME :\n")
+    r_th1.font.name = "Times New Roman"
+    r_th1.font.size = Pt(10)
+    r_th1.bold = True
+    r_th1.font.color.rgb = c_gold
+    r_th2 = p_th.add_run("CONCEPTION ET RÉALISATION DE LA PLATEFORME WEB POLY :\nASSISTANT INTELLIGENT D'ORIENTATION ACADÉMIQUE, MOTEUR RAG HYBRIDE ET INTÉGRATION EN TEMPS RÉEL DU SITE OFFICIEL DE L'ENSPD (enspd-udo.cm)")
+    r_th2.font.name = "Times New Roman"
+    r_th2.font.size = Pt(11)
+    r_th2.bold = True
+    r_th2.font.color.rgb = RGBColor(255, 255, 255)
+
+    # 6. Tableau des Membres du Groupe (11 participants)
+    p_memb = doc.add_paragraph()
+    p_memb.paragraph_format.space_before = Pt(6)
+    p_memb.paragraph_format.space_after = Pt(2)
+    p_memb.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_mb = p_memb.add_run("Rédigé et présenté par le groupe d'étudiants :")
+    r_mb.bold = True
+    r_mb.font.name = "Times New Roman"
+    r_mb.font.size = Pt(10)
+    r_mb.font.color.rgb = c_navy
+
+    students = [
+        ("1- DJOGU KAMENI DARELLE", "22G00078"),
+        ("2- Agnoung gouife Ariel Caleb", "24G01073"),
+        ("3- NTEM DILANE LA VICTOIRE", "22G00342"),
+        ("4- BAYIGHOMOG ONDOA ULRICH", "22G00038"),
+        ("5- AZOU EBENDENG Siméon Cédric", "22G00028"),
+        ("6- YETMOU ROBERT CLAYRTON", "22G00546"),
+        ("7- LELE TCHUEBOU ALEXIS LEDOUX", "21G00207"),
+        ("8- ADAMOU HAMADOU TIZE", "22G00417"),
+        ("9- DONFACK KEUNANG VLADIMIR GEORGES", "22G00085"),
+        ("10- KITIO MATCHOUSSA GERBEAU", "22G00196"),
+        ("11- TSANA TAPONDJOU GUERIN GEORIS", "22G00538")
+    ]
+
+    tbl_s = doc.add_table(rows=len(students) + 1, cols=2)
+    tbl_s.alignment = WD_TABLE_ALIGNMENT.CENTER
+    c_s1, c_s2 = tbl_s.rows[0].cells
+    c_s1.width = Inches(4.3)
+    c_s2.width = Inches(2.3)
+    set_cell_background(c_s1, "0A192F")
+    set_cell_background(c_s2, "0A192F")
+    set_cell_margins(c_s1, top=30, bottom=30, left=80, right=80)
+    set_cell_margins(c_s2, top=30, bottom=30, left=80, right=80)
+
+    p1 = c_s1.paragraphs[0]
+    r_h1 = p1.add_run("Noms et Prénoms des Participants")
+    r_h1.font.name = "Times New Roman"
+    r_h1.font.size = Pt(8.5)
+    r_h1.bold = True
+    r_h1.font.color.rgb = RGBColor(255, 255, 255)
+
+    p2 = c_s2.paragraphs[0]
+    p2.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    r_h2 = p2.add_run("Matricules")
+    r_h2.font.name = "Times New Roman"
+    r_h2.font.size = Pt(8.5)
+    r_h2.bold = True
+    r_h2.font.color.rgb = RGBColor(255, 255, 255)
+
+    for idx, (name, matricule) in enumerate(students):
+        cell_n, cell_m = tbl_s.rows[idx + 1].cells
+        cell_n.width = Inches(4.3)
+        cell_m.width = Inches(2.3)
+        bg = "F8FAFC" if idx % 2 == 0 else "FFFFFF"
+        set_cell_background(cell_n, bg)
+        set_cell_background(cell_m, bg)
+        set_cell_margins(cell_n, top=20, bottom=20, left=80, right=80)
+        set_cell_margins(cell_m, top=20, bottom=20, left=80, right=80)
+
+        pn = cell_n.paragraphs[0]
+        rn = pn.add_run(name)
+        rn.font.name = "Times New Roman"
+        rn.font.size = Pt(8)
+        rn.bold = True
+        rn.font.color.rgb = c_navy
+
+        pm = cell_m.paragraphs[0]
+        pm.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        rm = pm.add_run(matricule)
+        rm.font.name = "Times New Roman"
+        rm.font.size = Pt(8)
+        rm.font.color.rgb = c_slate
+
+    # 7. Encadreurs Pédagogiques & Année Académique
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    tbl_enc = doc.add_table(rows=1, cols=2)
+    tbl_enc.alignment = WD_TABLE_ALIGNMENT.CENTER
+    ce1, ce2 = tbl_enc.rows[0].cells
+    ce1.width = Inches(3.3)
+    ce2.width = Inches(3.3)
+    set_cell_margins(ce1, top=40, bottom=40, left=60, right=60)
+    set_cell_margins(ce2, top=40, bottom=40, left=60, right=60)
+
+    pe1 = ce1.paragraphs[0]
+    r_en1 = pe1.add_run("Encadrement Académique :\n")
+    r_en1.bold = True
+    r_en1.font.name = "Times New Roman"
+    r_en1.font.size = Pt(9)
+    r_en1.font.color.rgb = c_navy
+    r_en2 = pe1.add_run("Équipe Pédagogique du Cours de Programmation Web Dynamique\nENSPD – Université de Douala")
+    r_en2.font.name = "Times New Roman"
+    r_en2.font.size = Pt(8.5)
+    r_en2.italic = True
+    r_en2.font.color.rgb = c_slate
+
+    pe2 = ce2.paragraphs[0]
+    pe2.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    r_an1 = pe2.add_run("Année Académique :\n")
+    r_an1.bold = True
+    r_an1.font.name = "Times New Roman"
+    r_an1.font.size = Pt(9)
+    r_an1.font.color.rgb = c_navy
+    r_an2 = pe2.add_run("2025 – 2026\nCampus de PK17, Douala")
+    r_an2.font.name = "Times New Roman"
+    r_an2.font.size = Pt(9)
+    r_an2.bold = True
+    r_an2.font.color.rgb = c_slate
 
     doc.add_page_break()
 
@@ -490,9 +679,39 @@ def build_report():
 
     add_callout(doc, 
         "1. Service Worker & Cache PWA : Les assets statiques, styles et images sont mis en cache localement dès la première visite.\n"
-        "2. Module offlineFaq.ts : Une base locale intégrée de 10 questions/réponses officielles est interrogée instantanément par le navigateur "
+        "2. Module offlineFaq.ts : Une base locale intégrée de questions/réponses officielles est interrogée instantanément par le navigateur "
         "si l'appel API backend échoue. Le visiteur continue d'obtenir les informations capitales (Direction, Filières, Inscriptions) avec la mention [Mode hors-ligne].",
         "RÉSILIENCE HORS-LIGNE ENF-04")
+
+    doc.add_heading("3.3 Intégration en Temps Réel du Site Officiel de l'ENSPD (enspd-udo.cm) & API Web Scraping", level=2)
+    p = doc.add_paragraph()
+    p.paragraph_format.line_spacing = 1.15
+    p.paragraph_format.space_after = Pt(8)
+    p.add_run(
+        "Afin de garantir que l'assistant POLY dispose en permanence des dernières actualités publiées par l'école (communiqués du Directeur, "
+        "calendrier officiel des épreuves du concours, modifications de programmes), une API d'interrogation en direct du portail web "
+        "institutionnel (https://enspd-udo.cm) a été directement interconnectée au pipeline RAG :"
+    )
+
+    web_features = [
+        ("Détection automatique de connectivité (is_online) : ", 
+         "Le système évalue en continu la disponibilité du réseau sans bloquer la boucle asynchrone FastAPI. Si l'utilisateur est connecté, le RAG active l'accès web direct."),
+        ("Extraction ciblée de contenu sans dépendance externe : ", 
+         "Le service enspd_web_fetcher s'appuie sur un parseur HTML standardisé (HTMLTextExtractor) capable d'extraire le texte pur, de filtrer les scripts et styles, et d'isoler les sections stratégiques (concours, départements, inscription)."),
+        ("Enrichissement contextuel du prompt (Live Web Augmentation) : ", 
+         "Lorsque la question porte sur une information récente ou que le score local est insuffisant, les extraits du site officiel sont injectés en temps réel dans les fiches sources avec mention explicite du lien HTTPS vérifiable."),
+        ("Endpoint d'administration & synchronisation (/api/v1/enspd-site/sync) : ", 
+         "Permet aux gestionnaires académiques de déclencher en un clic la mise à jour complète de la base de connaissances locale à partir du contenu en ligne.")
+    ]
+
+    for wf_title, wf_desc in web_features:
+        wfp = doc.add_paragraph(style='List Bullet')
+        wfp.paragraph_format.space_after = Pt(4)
+        wfp.paragraph_format.line_spacing = 1.15
+        r_wft = wfp.add_run(wf_title)
+        r_wft.bold = True
+        r_wft.font.color.rgb = c_navy
+        wfp.add_run(wf_desc)
 
     doc.add_page_break()
 

@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.db.database import Base
 from app.db.seed_data import seed_database
-from app.api.v1 import auth, chat, orientation, emergency, analytics, sheets, callbacks
+from app.api.v1 import auth, chat, orientation, emergency, analytics, sheets, callbacks, enspd_site
 from app.schemas.schemas import UserLogin, ChatRequest, OrientationRequest, OrientationStepAnswer
 
 @pytest.fixture
@@ -86,4 +86,16 @@ def test_api_director_precision_guard(api_db):
     reply = res.reply
     assert "MOUANGUE" in reply or "mouangue" in reply.lower()
     assert res.relevance_score >= 0.90
+
+def test_api_enspd_site_status():
+    status = enspd_site.get_enspd_site_status()
+    assert status.site_url == "https://enspd-udo.cm"
+    assert status.checked_at is not None
+    assert isinstance(status.online, bool)
+
+def test_api_enspd_site_live_search():
+    req = enspd_site.LiveSearchRequest(query="filières concours admission", language="fr")
+    res = enspd_site.live_search_enspd_site(req)
+    assert res.query == "filières concours admission"
+    assert isinstance(res.results, list)
 
